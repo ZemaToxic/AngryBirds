@@ -1,4 +1,4 @@
-#include "../Header Files/camera.h"
+#include "../Header/camera.h"
 
 float cameraSpeed = 0.5f;
 
@@ -96,7 +96,7 @@ void Camera::update_camera(unsigned char value[])
 		// rotate the camera to the right
 		camera_front_ += normalize(cross(camera_front_, camera_up_)) * cameraSpeed;
 	}
-	
+
 	if (value[unsigned char('[')] == BUTTON_DOWN)
 	{
 		system("CLS");

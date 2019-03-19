@@ -18,6 +18,22 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Box2DObject.cpp" />
+    <ClCompile Include="Source\camera.cpp" />
+    <ClCompile Include="Source\GameModel.cpp" />
+    <ClCompile Include="Source\light.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\shaderLoader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header\Box2DObject.h" />
+    <ClInclude Include="Header\camera.h" />
+    <ClInclude Include="Header\GameModel.h" />
+    <ClInclude Include="Header\light.h" />
+    <ClInclude Include="Header\shaderLoader.h" />
+    <ClInclude Include="Header\utils.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{D9BB6440-E2C1-427E-ACD1-989F2188B282}</ProjectGuid>
@@ -69,7 +85,16 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectDir)Dependencies\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)Lib\;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)Header\;$(ProjectDir)Source\;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <SourcePath>$(ProjectDir)Header\;$(ProjectDir)Source\;$(SourcePath)</SourcePath>
+    <LibraryPath>$(ProjectDir)Lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)Dependencies\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -77,6 +102,9 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>fmod_vc.lib;freetype.lib;opengl32.lib;glew32.lib;freeglut.lib;SOIL.lib;Box2D.lib;Box2DRelease.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -85,6 +113,9 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>fmod_vc.lib;freetype.lib;opengl32.lib;glew32.lib;freeglut.lib;SOIL.lib;Box2D.lib;Box2DRelease.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
