@@ -14,8 +14,8 @@ Light* main_light;
 GameModel* model;
 
 b2World* world;
-CBox2DObject* box2DObjG;	
-CBox2DObject* box2DObjB;	
+CBox2DObject* bGround;	
+CBox2DObject* bBox;	
 
 
 // Initialise the "Game"
@@ -51,11 +51,11 @@ void init()
 	fixture_def.restitution = 0.5f; //Bouncyness
 
 	// Ground
-	box2DObjG = new CBox2DObject(world, BOX, fixture_def, false, "Assets/front.jpg", main_camera, main_light, {utils::window_width / 2, -(utils::window_height - 770)}, {utils::window_width, 10});
-	box2DObjG->setProgram(light_program);
+	bGround = new CBox2DObject(world, BOX, fixture_def, false, "Assets/front.jpg", main_camera, main_light, {utils::window_width / 2, -(utils::window_height - 770)}, {utils::window_width, 10});
+	bGround->setProgram(light_program);
 	// Box (should fall and land on ground)
-	box2DObjB = new CBox2DObject(world, BOX, fixture_def, true, "Assets/front.jpg", main_camera, main_light);
-	box2DObjB->setProgram(light_program);
+	bBox = new CBox2DObject(world, BOX, fixture_def, true, "Assets/front.jpg", main_camera, main_light);
+	bBox->setProgram(light_program);
 }
 
 // Update called each "frame"
@@ -72,14 +72,16 @@ void update()
 	const int32 position_iterations = 2;
 	world->Step(time_step, velocity_iterations, position_iterations);
 
-	// Update box2D Ground physics (?)
-	box2DObjG->process();
-	box2DObjG->update();	
-	// Update box2D Box physics (?)
-	box2DObjB->process();
-	box2DObjB->update();
+	// Update box2D Ground physics
+	bGround->process();
+	bGround->update();	
+	// Update box2D Box physics for the box
+	bBox->process();
+	bBox->update();
+
 	// Update the Model's
 	model->update();
+	
 	// Update Camera (Check for keyboard input)
 	main_camera->update_camera(utils::key_state);
 	// Update Light (Check for keyboard input)
@@ -106,9 +108,9 @@ void render()
 	// Light Render function
 	main_light->render();
 	// Box2D Ground Render
-	box2DObjG->render();
+	bGround->render();
 	// Box2D Box Render
-	box2DObjB->render();
+	bBox->render();
 	// Model Render function
 	model->render();
 
