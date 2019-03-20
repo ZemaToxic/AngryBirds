@@ -11,7 +11,7 @@ Camera::~Camera()
 void Camera::initialize()
 {
 	// Define the camera
-	camera_pos_ = glm::vec3(0.0f, 3.0f, 20.0f);
+	camera_pos_ = glm::vec3(0.0f, 0.0f, 50.0f);
 	camera_front_ = glm::vec3(0.0f, 0.0f, -1.0f);
 	camera_up_ = glm::vec3(0.0f, 1.0f, 0.0f);
 
@@ -31,10 +31,10 @@ void Camera::update_camera(unsigned char value[])
 	// Reset Camera
 	if (value[unsigned char('r')] == BUTTON_DOWN)
 	{
-		camera_pos_ = glm::vec3(0.0f, 3.0f, 20.0f);
+		camera_pos_ = glm::vec3(0.0f, 0.0f, 20.0f);
 		camera_front_ = glm::vec3(0.0f, 0.0f, -1.0f);
 		camera_up_ = glm::vec3(0.0f, 1.0f, 0.0f);
-		cameraSpeed = 0.5f;
+		cameraSpeed = 0.1f;
 	}
 
 	// Forward / Backward

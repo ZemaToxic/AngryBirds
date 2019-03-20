@@ -7,14 +7,15 @@
 
 GLuint main_program;
 ShaderLoader shader_loader;
-ModelType _modelType = kCube;
+ModelType model_type = kCube;
 
 Camera* main_camera;
 Light* main_light;
 GameModel* model;
 
 b2World* world;
-CBox2DObject* box2DObj;
+CBox2DObject* box2DObjG;	
+CBox2DObject* box2DObjB;	
 
 
 // Initialise the "Game"
@@ -31,27 +32,30 @@ void init()
 	main_camera->initialize();
 
 	// Load the shaderLoader for the Light
-	GLuint light_program = shader_loader.create_program((char*)"Assets/Shaders/Light.vs",
-	                                                    (char*)"Assets/Shaders/Light.fs");
-	main_light = new Light(main_camera, utils::ambientStrength, utils::specularStrength, glm::vec3(1.0f, 0.0f, 0.0f));
+	const GLuint light_program = shader_loader.create_program((char*)"Assets/Shaders/Light.vs", (char*)"Assets/Shaders/Light.fs");
+	main_light = new Light(main_camera, utils::ambientStrength, utils::specularStrength, glm::vec3(1.0f, 1.0f, 1.0f));
 	main_light->setProgram(light_program);
 
 	// Create a new Cube and pass the light value
-	model = new GameModel(_modelType, main_camera, "Assets/front.jpg", main_light, utils::ambientStrength,
-	                      utils::specularStrength);
+	model = new GameModel(model_type, main_camera, "Assets/front.jpg", main_light, utils::ambientStrength, utils::specularStrength);
 	model->setProgram(light_program);
 
 	// Init Box2D
-	b2Vec2 gravity(0.0f, -200.0f);
+	const b2Vec2 gravity(0.0f, -200.0f);
 	world = new b2World(gravity);
 
-	//A fixture is required for box 2d to make physics equations with, made using
-	b2FixtureDef fixtureDef;
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.3f;
-	fixtureDef.restitution = 0.5f; //Bouncyness
+	//A fixture is required for box 2d to make physics equations
+	b2FixtureDef fixture_def;
+	fixture_def.density = 1.0f;
+	fixture_def.friction = 0.3f;
+	fixture_def.restitution = 0.5f; //Bouncyness
 
-	box2DObj = new CBox2DObject(world, BOX, fixtureDef, false, "Assets/front.jpg", main_camera, main_light);
+	// Ground
+	box2DObjG = new CBox2DObject(world, BOX, fixture_def, false, "Assets/front.jpg", main_camera, main_light, {utils::window_width / 2, -(utils::window_height - 770)}, {utils::window_width, 10});
+	box2DObjG->setProgram(light_program);
+	// Box (should fall and land on ground)
+	box2DObjB = new CBox2DObject(world, BOX, fixture_def, true, "Assets/front.jpg", main_camera, main_light);
+	box2DObjB->setProgram(light_program);
 }
 
 // Update called each "frame"
@@ -62,18 +66,26 @@ void update()
 	{
 		std::cout << "Update Called\n";
 	}
-	main_camera->update_camera(utils::key_state);
-	main_light->updateLight(utils::key_state);
-	utils::optionsMenu(utils::key_state);
-
 	//At some point in process you must tell the world when to step, or the timings for physics equations
-	float32 timeStep = 1.0f / 120.0f;
-	int32 velocityIterations = 6;
-	int32 positionIterations = 2;
-	world->Step(timeStep, velocityIterations, positionIterations);
+	const float32 time_step = 1.0f / 120.0f;
+	const int32 velocity_iterations = 6;
+	const int32 position_iterations = 2;
+	world->Step(time_step, velocity_iterations, position_iterations);
 
-	box2DObj->Process();
+	// Update box2D Ground physics (?)
+	box2DObjG->process();
+	box2DObjG->update();	
+	// Update box2D Box physics (?)
+	box2DObjB->process();
+	box2DObjB->update();
+	// Update the Model's
 	model->update();
+	// Update Camera (Check for keyboard input)
+	main_camera->update_camera(utils::key_state);
+	// Update Light (Check for keyboard input)
+	main_light->updateLight(utils::key_state);
+	// Options Menu (quit etc)
+	utils::optionsMenu(utils::key_state);
 
 	glutPostRedisplay(); // Do not move this.
 }
@@ -93,10 +105,12 @@ void render()
 
 	// Light Render function
 	main_light->render();
+	// Box2D Ground Render
+	box2DObjG->render();
+	// Box2D Box Render
+	box2DObjB->render();
 	// Model Render function
 	model->render();
-	// Box2D Render
-	box2DObj->render();
 
 	glutSwapBuffers(); // swap buffers
 }
@@ -112,8 +126,8 @@ int main(int argc, char** argv)
 	// Init glut
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowPosition(utils::window_pos_x, utils::window_pos_y);
-	glutInitWindowSize(utils::window_width, utils::window_height);
+	glutInitWindowPosition(int(utils::window_pos_x), int(utils::window_pos_y));
+	glutInitWindowSize(int(utils::window_width), int(utils::window_height));
 	glutCreateWindow("Angry Birds");
 
 	glewInit();

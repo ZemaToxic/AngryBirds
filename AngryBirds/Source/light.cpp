@@ -8,13 +8,14 @@ Light::Light(Camera* _camera, float _ambientStrength, float _specularStrength, g
 	specularStrength = _specularStrength;
 
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
-	localPosition = glm::vec3(0.0f, 10.0f, 0.5f);
+	localPosition = glm::vec3(0.0f, 10.0f, 15.0f);
 
 	color = glm::vec3(1.0f, 1.0f, 1.0f);
-	lightColor = _lightColor;
+	lightColour = _lightColor;
 
 	angle = glm::vec3(0.1f, 0.5f, 0.2f);
 	utils::setSphereData(vertices, indices);
+	
 
 	glGenVertexArrays(1, &lightVao);
 	glBindVertexArray(lightVao);
@@ -72,8 +73,8 @@ void Light::render()
 	GLuint lightPosLoc = glGetUniformLocation(lightProgram, "lightPos");
 	glUniform3f(lightPosLoc, this->getPosition().x, this->getPosition().y, this->getPosition().z);
 
-	GLuint lightColorLoc = glGetUniformLocation(lightProgram, "lightColor");
-	glUniform3f(lightColorLoc, this->getColor().x, this->getColor().y, this->getColor().z);
+	GLuint lightColorLoc = glGetUniformLocation(lightProgram, "lightColour");
+	glUniform3f(lightColorLoc, this->getColour().x, this->getColour().y, this->getColour().z);
 
 	GLuint specularStrengthLoc = glGetUniformLocation(lightProgram, "specularStrength");
 	glUniform1f(specularStrengthLoc, specularStrength);
@@ -143,7 +144,7 @@ void Light::setPosition(glm::vec3 _lightPosition)
 
 void Light::setColour(glm::vec3 _lightColour)
 {
-	this->lightColor = _lightColour;
+	this->lightColour = _lightColour;
 }
 
 void Light::setSpecularStrength(float _specularStrength)
@@ -161,9 +162,9 @@ glm::vec3 Light::getPosition()
 	return (localPosition);
 }
 
-glm::vec3 Light::getColor()
+glm::vec3 Light::getColour()
 {
-	return (lightColor);
+	return (lightColour);
 }
 
 void Light::moveForward()

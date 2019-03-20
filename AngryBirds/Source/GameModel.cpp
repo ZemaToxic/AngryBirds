@@ -1,6 +1,6 @@
 #include "../Header/GameModel.h"
-#include "../Header/Camera.h"
-#include "../Header/Light.h"
+#include "../Header/camera.h"
+#include "../Header/light.h"
 
 GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileName, Light* _light,
                      float _ambientStrength, float _specularStrength)
@@ -10,7 +10,7 @@ GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileNa
 
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	position = glm::vec3(0.0, 0.0, 0.0);
-	color = glm::vec3(1.0f, 1.0f, 1.0f);
+	color = glm::vec3(1.0f, 1.0f, 0.0f);
 
 	ambientStrength = _ambientStrength;
 	specularStrength = _specularStrength;
@@ -31,7 +31,7 @@ GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileNa
 
 	for (auto item : vertices)
 	{
-		printf("GAME MODEL position: %f, %f, %f \n", item.pos.x, item.pos.y, item.pos.z);
+		//printf("GAME MODEL position: %f, %f, %f \n", item.pos.x, item.pos.y, item.pos.z);
 	}
 
 	glGenVertexArrays(1, &vao);
@@ -52,12 +52,10 @@ GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileNa
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (GLvoid*)nullptr);
 
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat),
-	                      (void*)(offsetof(VertexFormat, VertexFormat::texCoord)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(offsetof(VertexFormat, VertexFormat::texCoord)));
 
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat),
-	                      (void*)(offsetof(VertexFormat, VertexFormat::normal)));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(offsetof(VertexFormat, VertexFormat::normal)));
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -67,7 +65,7 @@ GameModel::~GameModel()
 {
 }
 
-void GameModel::update(GLfloat time)
+void GameModel::update()
 {
 	//model = glm::rotate(model,glm::radians(45.0f) * time, glm::vec3(0.0, 1.0, 0.0f));		
 	//model = glm::translate(model, position);
@@ -107,7 +105,7 @@ void GameModel::render(/*glm::vec3 pos*/)
 	glUniform3f(lightPosLoc, this->light->getPosition().x, this->light->getPosition().y, this->light->getPosition().z);
 
 	GLuint lightColorLoc = glGetUniformLocation(program, "lightColor");
-	glUniform3f(lightColorLoc, this->light->getColor().x, this->light->getColor().y, this->light->getColor().z);
+	glUniform3f(lightColorLoc, this->light->getColour().x, this->light->getColour().y, this->light->getColour().z);
 
 
 	GLuint specularStrengthLoc = glGetUniformLocation(program, "specularStrength");

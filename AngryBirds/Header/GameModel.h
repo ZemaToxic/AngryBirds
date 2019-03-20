@@ -8,10 +8,11 @@ class Camera;
 class GameModel
 {
 public:
-	GameModel(ModelType modelType, Camera* _camera, std::string texFileName, Light* light, float ambientStrength, float specularStrength);
+	GameModel(ModelType modelType, Camera* _camera, std::string texFileName, Light* light, float ambientStrength,
+	          float specularStrength);
 	~GameModel();
 
-	void update(GLfloat time);
+	void update();
 	void render();
 
 	void setPosition(glm::vec3 _position);
@@ -46,6 +47,7 @@ public:
 	std::vector<VertexFormat> vertices;
 	std::vector<GLuint> indices;
 
+	int width, height;
 	glm::vec3 position;
 	glm::vec3 scale;
 	glm::vec3 angle;
@@ -58,7 +60,7 @@ public:
 	GLuint texture;
 	GLuint program;
 
-	//glm::mat4 model;
+	glm::mat4 model;
 
 	float specularStrength;
 	float ambientStrength;

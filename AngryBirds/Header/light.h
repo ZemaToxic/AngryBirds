@@ -21,7 +21,7 @@ public:
 	void render();
 
 	glm::vec3 getPosition();
-	glm::vec3 getColor();
+	glm::vec3 getColour();
 
 	// Light Movement functions
 	void moveForward();
@@ -41,7 +41,7 @@ private:
 	glm::vec3 scale;
 	glm::vec3 angle;
 	glm::vec3 color;
-	glm::vec3 lightColor;
+	glm::vec3 lightColour;
 
 	GLuint lightVao;
 	GLuint lightVbo;

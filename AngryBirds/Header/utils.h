@@ -117,10 +117,10 @@ struct IndexFormat
 
 namespace utils
 {
-	const static int window_pos_x = 250;
-	const static int window_pos_y = 150;
-	const static int window_width = 750;
-	const static int window_height = 750;
+	const static float window_pos_x = 250;
+	const static float window_pos_y = 150;
+	const static float window_width = 1200;
+	const static float window_height = 800;
 
 	static float ambientStrength = 1.0f;
 	static float specularStrength = 1.0f;
