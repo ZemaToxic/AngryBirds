@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Box2DObject.cpp" />
+    <ClCompile Include="Source\box2DObj.cpp" />
     <ClCompile Include="Source\camera.cpp" />
     <ClCompile Include="Source\GameModel.cpp" />
     <ClCompile Include="Source\light.cpp" />
@@ -27,7 +27,7 @@
     <ClCompile Include="Source\shaderLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header\Box2DObject.h" />
+    <ClInclude Include="Header\box2DObj.h" />
     <ClInclude Include="Header\camera.h" />
     <ClInclude Include="Header\GameModel.h" />
     <ClInclude Include="Header\light.h" />

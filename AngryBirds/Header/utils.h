@@ -18,13 +18,6 @@
 #include <iostream>
 #include <fstream>
 
-// Other Header Includes
-/* 
- * 
- *  ---- TBD?
- * 
- */
-
 
 // Model Type
 enum ModelType
@@ -185,10 +178,10 @@ namespace utils
 	inline void setQuadData(std::vector<VertexFormat>& vertices, std::vector<GLuint>& indices)
 	{
 		std::vector<VertexFormat> Vertices;
-		Vertices.push_back(VertexFormat(Position(-1.0f, -1.0, 0.0), TexCoord(-1.0, -1.0), Normals(0.0f, 0.0f, 1.0)));
-		Vertices.push_back(VertexFormat(Position(-1.0, 1.0, 0.0), TexCoord(-1.0, 1.0), Normals(0.0f, 0.0f, 1.0)));
-		Vertices.push_back(VertexFormat(Position(1.0, 1.0, 0.0), TexCoord(1.0, 1.0), Normals(0.0f, 0.0f, 1.0)));
-		Vertices.push_back(VertexFormat(Position(1.0, -1.0, 0.0), TexCoord(1.0, -1.0), Normals(0.0f, 0.0f, 1.0)));
+		Vertices.push_back(VertexFormat(Position(-1.0f, -1.0f, 1.0f), TexCoord(1.0, 1.0), Normals(0.0f, 0.0f, 1.0)));
+		Vertices.push_back(VertexFormat(Position(1.0f, -1.0f, 1.0f), TexCoord(0.0, 1.0), Normals(0.0f, 0.0f, 1.0)));
+		Vertices.push_back(VertexFormat(Position(1.0f, 1.0f, 1.0f), TexCoord(0.0, 0.0), Normals(0.0f, 0.0f, 1.0)));
+		Vertices.push_back(VertexFormat(Position(-1.0f, 1.0f, 1.0f), TexCoord(1.0, 0.0), Normals(0.0f, 0.0f, 1.0)));
 
 		std::vector<GLuint> Indices;
 		Indices.push_back(0);

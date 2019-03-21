@@ -10,7 +10,7 @@ GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileNa
 
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	position = glm::vec3(0.0, 0.0, 0.0);
-	color = glm::vec3(1.0f, 1.0f, 0.0f);
+	color = glm::vec3(1.0f, 1.0f, 1.0f);
 
 	ambientStrength = _ambientStrength;
 	specularStrength = _specularStrength;
@@ -145,7 +145,7 @@ void GameModel::setTexture(std::string texFileName)
 	//** loadImage and create texture
 	// Load image, create texture and generate mipmaps
 	int width, height;
-	unsigned char* image = SOIL_load_image(texFileName.c_str(), &width, &height, nullptr, SOIL_LOAD_RGBA);
+	unsigned char* image = SOIL_load_image(texFileName.c_str(), &width, &height, nullptr, SOIL_LOAD_RGB);
 
 	if (!image)
 	{
@@ -154,7 +154,7 @@ void GameModel::setTexture(std::string texFileName)
 		return;
 	}
 	bIsTextureSet = true;
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(image);

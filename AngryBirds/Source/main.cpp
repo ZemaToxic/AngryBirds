@@ -3,24 +3,24 @@
 #include "../Header/camera.h"
 #include "../Header/light.h"
 #include "../Header/shaderLoader.h"
-#include "../Header/Box2DObject.h"
+#include "../Header/box2DObj.h"
 
 GLuint main_program;
 ShaderLoader shader_loader;
-ModelType model_type = kCube;
 
 Camera* main_camera;
 Light* main_light;
-GameModel* model;
 
+GameModel* backGround;
 b2World* world;
-CBox2DObject* bGround;
-CBox2DObject* bBirb;
 
-CBox2DObject* bObstacle1;
-CBox2DObject* bObstacle2;
-CBox2DObject* bObstacle3;
-CBox2DObject* bObstacle4;
+box2D* bGround;
+box2D* bBirb;
+
+box2D* bObstacle1;
+box2D* bObstacle2;
+box2D* bObstacle3;
+box2D* bObstacle4;
 
 // Initialise the "Game"
 void init()
@@ -44,19 +44,36 @@ void init()
 	const b2Vec2 gravity(0.0f, -200.0f);
 	world = new b2World(gravity);
 
-	//A fixture is required for box 2d to make physics equations
+	// A fixture is required for box 2d to make physics equations
 	b2FixtureDef fixture_def;
 	fixture_def.density = 1.0f;
 	fixture_def.friction = 0.3f;
 	// Bouncyness (Higher = Bouncier)
 	fixture_def.restitution = 0.5f; 
-
-	// Ground																										// Pos	   // Size
-	bGround = new CBox2DObject(world, BOX, kQuad, fixture_def, false, "Assets/front.jpg", main_camera, main_light, { 0, -35 }, { 75, 10 });
+	
+	// Create a new Cube and pass the light value
+	backGround = new GameModel(kQuad, main_camera, "Assets/background.jpg", main_light, utils::ambientStrength, utils::specularStrength);
+	backGround->setProgram(light_program);
+	backGround->setScale({-75.0f,-40.0f,1.0f});
+	
+	// Ground																																							// Pos	   // Size
+	bGround = new box2D(world, BOX, kQuad, fixture_def, false, "Assets/ground.jpg", main_camera, main_light, { 0, -35 }, { 75, 10 });
 	bGround->setProgram(light_program);
-	// Box (should fall and land on ground)																			// Pos	   // Size
-	bBirb = new CBox2DObject(world, CIRCLE, kSphere, fixture_def, true, "Assets/front.jpg", main_camera, main_light, { 0, 0 }, { 4, 4 });
+	// Bird (should fall and land on ground)																															// Pos	   // Size
+	bBirb = new box2D(world, CIRCLE, kSphere, fixture_def, true, "Assets/birb.jpg", main_camera, main_light, { 0, 0 }, { 4, 4 });
 	bBirb->setProgram(light_program);
+
+	// Obstacles etc
+	bObstacle1 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, { 2, 5  }, { 10, 2 });
+	bObstacle2 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, { 4, 10 }, { 10, 2 });
+	bObstacle3 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, { 6, 15 }, { 10, 2 });
+	bObstacle4 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, { 8, 20 }, { 10, 2 });
+
+	bObstacle1->setProgram(light_program);
+	bObstacle2->setProgram(light_program);
+	bObstacle3->setProgram(light_program);
+	bObstacle4->setProgram(light_program);
+
 }
 
 // Update called each "frame"
@@ -67,7 +84,7 @@ void update()
 	{
 		std::cout << "Update Called\n";
 	}
-	//At some point in process you must tell the world when to step, or the timings for physics equations
+	// At some point in process you must tell the world when to step, or the timings for physics equations
 	const float32 time_step = 1.0f / 120.0f;
 	const int32 velocity_iterations = 6;
 	const int32 position_iterations = 2;
@@ -79,6 +96,17 @@ void update()
 	// Update box2D Box physics for the birb
 	bBirb->process();
 	bBirb->update();
+
+	// Obstacles
+	bObstacle1->process();
+	bObstacle2->process();
+	bObstacle3->process();
+	bObstacle4->process();
+
+	bObstacle1->update();
+	bObstacle2->update();
+	bObstacle3->update();
+	bObstacle4->update();
 
 	// Update Camera (Check for keyboard input)
 	main_camera->update_camera(utils::key_state);
@@ -100,15 +128,23 @@ void render()
 	}
 
 	// Set the background colour
-	glClearColor(0.9f, 0.5f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Light Render function
 	main_light->render();
+	// Render the background
+	backGround->render();
 	// Box2D Ground Render
 	bGround->render();
 	// Box2D Box Render
 	bBirb->render();
+
+	// Obstacles
+	bObstacle1->render();
+	bObstacle2->render();
+	bObstacle3->render();
+	bObstacle4->render();
 
 	glutSwapBuffers(); // swap buffers
 }

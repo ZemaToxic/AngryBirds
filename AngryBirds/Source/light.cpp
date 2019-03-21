@@ -8,7 +8,7 @@ Light::Light(Camera* _camera, float _ambientStrength, float _specularStrength, g
 	specularStrength = _specularStrength;
 
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
-	localPosition = glm::vec3(0.0f, 10.0f, 95.0f);
+	localPosition = glm::vec3(0.0f, 0.0f, 95.0f);
 
 	color = glm::vec3(1.0f, 1.0f, 1.0f);
 	lightColour = _lightColor;
