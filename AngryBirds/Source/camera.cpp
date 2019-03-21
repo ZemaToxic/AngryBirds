@@ -18,6 +18,9 @@ void Camera::initialize()
 	// Define the Matrix(s)
 	view_matrix_ = lookAt(camera_pos_, camera_pos_ + camera_front_, camera_up_);
 	projection_matrix_ = glm::perspective(70.0f, float(utils::window_width) / float(utils::window_height), 1.0f, 10000.f);
+	
+	//projection_matrix_ = glm::ortho(0, int(utils::window_width),  int(utils::window_height), 0, 1, 1000);	    // FIGURE THIS OUT
+
 	// For Debug purposes
 	if (utils::DEBUG)
 	{
@@ -82,28 +85,8 @@ void Camera::update_camera(unsigned char value[])
 	{
 		cameraSpeed = cameraSpeed - 1.0f;
 	}
-	// Rotate Up, Down, Left, Right
-	if (value[unsigned char('t')] == BUTTON_DOWN)
-	{
-		// rotate the camera upwards
-		camera_front_ += camera_up_ * cameraSpeed;
-	}
-	if (value[unsigned char('g')] == BUTTON_DOWN)
-	{
-		// rotate the camera downwards
-		camera_front_ -= camera_up_ * cameraSpeed;
-	}
-	if (value[unsigned char('f')] == BUTTON_DOWN)
-	{
-		// rotate the camera to the left
-		camera_front_ -= normalize(cross(camera_front_, camera_up_)) * cameraSpeed;
-	}
-	if (value[unsigned char('h')] == BUTTON_DOWN)
-	{
-		// rotate the camera to the right
-		camera_front_ += normalize(cross(camera_front_, camera_up_)) * cameraSpeed;
-	}
 
+	// Enable Debugging 
 	if (value[unsigned char('[')] == BUTTON_DOWN)
 	{
 		system("CLS");

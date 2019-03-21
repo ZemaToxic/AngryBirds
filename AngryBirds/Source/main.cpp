@@ -15,7 +15,7 @@ GameModel* model;
 
 b2World* world;
 CBox2DObject* bGround;
-CBox2DObject* bBox;
+CBox2DObject* bBirb;
 
 CBox2DObject* bObstacle1;
 CBox2DObject* bObstacle2;
@@ -40,10 +40,6 @@ void init()
 	main_light = new Light(main_camera, utils::ambientStrength, utils::specularStrength, glm::vec3(1.0f, 1.0f, 1.0f));
 	main_light->setProgram(light_program);
 
-	// Create a new Cube and pass the light value
-	model = new GameModel(model_type, main_camera, "Assets/front.jpg", main_light, utils::ambientStrength, utils::specularStrength);
-	model->setProgram(light_program);
-
 	// Init Box2D
 	const b2Vec2 gravity(0.0f, -200.0f);
 	world = new b2World(gravity);
@@ -52,14 +48,15 @@ void init()
 	b2FixtureDef fixture_def;
 	fixture_def.density = 1.0f;
 	fixture_def.friction = 0.3f;
-	fixture_def.restitution = 0.5f; //Bouncyness
+	// Bouncyness (Higher = Bouncier)
+	fixture_def.restitution = 0.5f; 
 
-	// Ground
-	bGround = new CBox2DObject(world, BOX, fixture_def, false, "Assets/front.jpg", main_camera, main_light, {0, -35}, {75, 10});
+	// Ground																										// Pos	   // Size
+	bGround = new CBox2DObject(world, BOX, kQuad, fixture_def, false, "Assets/front.jpg", main_camera, main_light, { 0, -35 }, { 75, 10 });
 	bGround->setProgram(light_program);
-	// Box (should fall and land on ground)
-	bBox = new CBox2DObject(world, BOX, fixture_def, true, "Assets/front.jpg", main_camera, main_light);
-	bBox->setProgram(light_program);
+	// Box (should fall and land on ground)																			// Pos	   // Size
+	bBirb = new CBox2DObject(world, CIRCLE, kSphere, fixture_def, true, "Assets/front.jpg", main_camera, main_light, { 0, 0 }, { 4, 4 });
+	bBirb->setProgram(light_program);
 }
 
 // Update called each "frame"
@@ -79,12 +76,9 @@ void update()
 	// Update box2D Ground physics
 	bGround->process();
 	bGround->update();
-	// Update box2D Box physics for the box
-	bBox->process();
-	bBox->update();
-
-	// Update the Model's
-	model->update();
+	// Update box2D Box physics for the birb
+	bBirb->process();
+	bBirb->update();
 
 	// Update Camera (Check for keyboard input)
 	main_camera->update_camera(utils::key_state);
@@ -114,9 +108,7 @@ void render()
 	// Box2D Ground Render
 	bGround->render();
 	// Box2D Box Render
-	bBox->render();
-	// Model Render function
-	model->render();
+	bBirb->render();
 
 	glutSwapBuffers(); // swap buffers
 }
