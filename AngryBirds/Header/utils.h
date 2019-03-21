@@ -119,8 +119,8 @@ namespace utils
 {
 	const static float window_pos_x = 250;
 	const static float window_pos_y = 150;
-	const static float window_width = 1200;
-	const static float window_height = 800;
+	const static float window_width = 1000;
+	const static float window_height = 500;
 
 	static float ambientStrength = 1.0f;
 	static float specularStrength = 1.0f;

@@ -34,6 +34,14 @@
     <ClInclude Include="Header\shaderLoader.h" />
     <ClInclude Include="Header\utils.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shaders\Light.fs" />
+    <None Include="Assets\Shaders\Light.vs" />
+    <None Include="Assets\Shaders\mesh.fs" />
+    <None Include="Assets\Shaders\mesh.vs" />
+    <None Include="Assets\Shaders\VAO_Triangle.fs" />
+    <None Include="Assets\Shaders\VAO_Triangle.vs" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{D9BB6440-E2C1-427E-ACD1-989F2188B282}</ProjectGuid>

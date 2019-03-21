@@ -8,14 +8,14 @@ Light::Light(Camera* _camera, float _ambientStrength, float _specularStrength, g
 	specularStrength = _specularStrength;
 
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
-	localPosition = glm::vec3(0.0f, 10.0f, 15.0f);
+	localPosition = glm::vec3(0.0f, 10.0f, 95.0f);
 
 	color = glm::vec3(1.0f, 1.0f, 1.0f);
 	lightColour = _lightColor;
 
 	angle = glm::vec3(0.1f, 0.5f, 0.2f);
 	utils::setSphereData(vertices, indices);
-	
+
 
 	glGenVertexArrays(1, &lightVao);
 	glBindVertexArray(lightVao);
@@ -33,12 +33,10 @@ Light::Light(Camera* _camera, float _ambientStrength, float _specularStrength, g
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (GLvoid*)nullptr);
 
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat),
-	                      (void*)(offsetof(VertexFormat, VertexFormat::texCoord)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(offsetof(VertexFormat, VertexFormat::texCoord)));
 
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat),
-	                      (void*)(offsetof(VertexFormat, VertexFormat::normal)));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(offsetof(VertexFormat, VertexFormat::normal)));
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -95,7 +93,7 @@ void Light::updateLight(unsigned char keystate[])
 	if (keystate[unsigned char('r')] == BUTTON_DOWN)
 	{
 		scale = glm::vec3(1.0f, 1.0f, 1.0f);
-		localPosition = glm::vec3(0.0f, 10.0f, 0.5f);
+		localPosition = glm::vec3(0.0f, 10.0f, 95.0f);
 		angle = glm::vec3(0.1f, 0.5f, 0.2f);
 	}
 	// Move the Light forward and backward

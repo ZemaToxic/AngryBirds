@@ -17,7 +17,9 @@ class CBox2DObject : public GameModel
 {
 public:
 
-	CBox2DObject(b2World* _world, ColliderShape _colliderShape, b2FixtureDef& _fixtureDef, bool _isDynamic, std::string ObjTexture, Camera* camera, Light* light, b2Vec2 _initPos = {0.0f, 0.0f}, b2Vec2 _initSize = {1.0f, 1.0f});
+	CBox2DObject(b2World* _world, ColliderShape _colliderShape, b2FixtureDef& _fixtureDef, bool _isDynamic,
+	             std::string ObjTexture, Camera* camera, Light* light, b2Vec2 _initPos = {0.0f, 0.0f},
+	             b2Vec2 _initSize = {1.0f, 1.0f});
 
 	void process();
 	b2Body* get_body() { return (m_body); }

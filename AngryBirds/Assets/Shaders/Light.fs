@@ -48,6 +48,6 @@ void main(){
     vec3 rim =  f * vec3(1.0f, 0.0f, 0.0f) * lightColor;// Finally, multiply it by the rim  color
     
    vec3 totalColor = (ambient + diffuse + specular + rim) * objectColor;
-   color = vec4(totalColor, 1.0f);// * texture(Texture, TexCoord);
+   color = vec4(totalColor, 1.0f) * texture(Texture, TexCoord);
 
 }

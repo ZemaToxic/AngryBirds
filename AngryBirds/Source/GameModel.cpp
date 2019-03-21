@@ -75,11 +75,12 @@ void GameModel::render(/*glm::vec3 pos*/)
 {
 	glUseProgram(program);
 
-	//if(bIsTextureSet)
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glUniform1i(glGetUniformLocation(program, "Texture"), 0);
-
+	if (bIsTextureSet)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glUniform1i(glGetUniformLocation(program, "Texture"), 0);
+	}
 	glm::mat4 model;
 	model = translate(model, position);
 	model = glm::scale(model, scale);
@@ -144,15 +145,23 @@ void GameModel::setTexture(std::string texFileName)
 	//** loadImage and create texture
 	// Load image, create texture and generate mipmaps
 	int width, height;
-	unsigned char* image = SOIL_load_image(texFileName.c_str(), &width, &height, nullptr, SOIL_LOAD_RGB);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	unsigned char* image = SOIL_load_image(texFileName.c_str(), &width, &height, nullptr, SOIL_LOAD_RGBA);
+
+	if (!image)
+	{
+		bIsTextureSet = false;
+		printf("Filename \"%s\" Failed to load \n", texFileName.c_str());
+		return;
+	}
+	bIsTextureSet = true;
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(image);
+
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	printf("Filename %s \n", texFileName.c_str());
-
-	//bIsTextureSet = true;
 }
 
 // setters and getters

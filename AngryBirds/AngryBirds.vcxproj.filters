@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{cd311476-6d35-4d74-9d8b-d22317bf0d49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DObject.cpp">
@@ -53,5 +56,25 @@
     <ClInclude Include="Header\light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shaders\Light.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\Light.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\mesh.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\mesh.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\VAO_Triangle.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\VAO_Triangle.vs">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -14,9 +14,13 @@ Light* main_light;
 GameModel* model;
 
 b2World* world;
-CBox2DObject* bGround;	
-CBox2DObject* bBox;	
+CBox2DObject* bGround;
+CBox2DObject* bBox;
 
+CBox2DObject* bObstacle1;
+CBox2DObject* bObstacle2;
+CBox2DObject* bObstacle3;
+CBox2DObject* bObstacle4;
 
 // Initialise the "Game"
 void init()
@@ -51,7 +55,7 @@ void init()
 	fixture_def.restitution = 0.5f; //Bouncyness
 
 	// Ground
-	bGround = new CBox2DObject(world, BOX, fixture_def, false, "Assets/front.jpg", main_camera, main_light, {utils::window_width / 2, -(utils::window_height - 770)}, {utils::window_width, 10});
+	bGround = new CBox2DObject(world, BOX, fixture_def, false, "Assets/front.jpg", main_camera, main_light, {0, -35}, {75, 10});
 	bGround->setProgram(light_program);
 	// Box (should fall and land on ground)
 	bBox = new CBox2DObject(world, BOX, fixture_def, true, "Assets/front.jpg", main_camera, main_light);
@@ -74,14 +78,14 @@ void update()
 
 	// Update box2D Ground physics
 	bGround->process();
-	bGround->update();	
+	bGround->update();
 	// Update box2D Box physics for the box
 	bBox->process();
 	bBox->update();
 
 	// Update the Model's
 	model->update();
-	
+
 	// Update Camera (Check for keyboard input)
 	main_camera->update_camera(utils::key_state);
 	// Update Light (Check for keyboard input)

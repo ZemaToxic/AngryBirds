@@ -1,7 +1,9 @@
 #include "../Header/Box2DObject.h"
 
 
-CBox2DObject::CBox2DObject(b2World* _world, ColliderShape _colliderShape, b2FixtureDef& _fixtureDef, bool _isDynamic, std::string ObjTexture, Camera* camera, Light* light, b2Vec2 _initPos, b2Vec2 _initSize) : GameModel(kQuad, camera, ObjTexture, light, utils::ambientStrength, utils::specularStrength), m_world(_world) 
+CBox2DObject::CBox2DObject(b2World* _world, ColliderShape _colliderShape, b2FixtureDef& _fixtureDef, bool _isDynamic,
+                           std::string ObjTexture, Camera* camera, Light* light, b2Vec2 _initPos, b2Vec2 _initSize) :
+	GameModel(kCube, camera, ObjTexture, light, utils::ambientStrength, utils::specularStrength), m_world(_world)
 {
 	b2BodyDef body_def;
 	body_def.fixedRotation = false;
@@ -38,6 +40,8 @@ CBox2DObject::CBox2DObject(b2World* _world, ColliderShape _colliderShape, b2Fixt
 	default:
 		break;
 	}
+
+	setTexture(ObjTexture);
 
 	setScale(glm::vec3{_initSize.x, _initSize.y, 1.0f});
 	m_body->CreateFixture(&_fixtureDef); //The fixture gets attached to the body
