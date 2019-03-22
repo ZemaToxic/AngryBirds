@@ -21,33 +21,18 @@ uniform float ambientStrength;
 
 void main(){
 
-    //**ambient
+    // Ambient
     float ambientStrength = 0.7f;
     vec3 ambient = ambientStrength * lightColor;
     
-    //**diffuse
+    // Diffuse
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(lightPos - FragPos);
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = diff * lightColor;
-    
-    // Specular
-    float specularStrength = 5.0f;
-    vec3 viewDir = normalize(cameraPos - FragPos);
-    vec3 reflectDir = reflect(-lightDir, norm);  
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-    vec3 specular = specularStrength * spec * lightColor;  
-        
-    vec3 result = (ambient + diffuse + specular) * objectColor;
-    color = vec4(result, 1.0f);
-    
-    //** rim lighting
-    float f = 1.0 - dot(norm, viewDir);// Calculate the rim factor 
-    f = smoothstep(0.0, 1.0, f);// Constrain it to the range 0 to 1 using a smoothstep  function     
-    f = pow(f, 16);// Raise it to the rim exponent 
-    vec3 rim =  f * vec3(1.0f, 0.0f, 0.0f) * lightColor;// Finally, multiply it by the rim  color
-    
-   vec3 totalColor = (ambient + diffuse + specular + rim) * objectColor;
-   color = vec4(totalColor, 1.0f) * texture(Texture, TexCoord);
+
+    // Output
+    vec3 totalColor = (ambient + diffuse) * objectColor;
+    color = vec4(totalColor, 1.0f) * texture(Texture, TexCoord);
 
 }

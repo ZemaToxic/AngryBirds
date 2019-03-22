@@ -161,7 +161,7 @@ void GameModel::setTexture(std::string texFileName)
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	printf("Filename %s \n", texFileName.c_str());
+	printf("Filename \"%s\" Loaded succesfully \n", texFileName.c_str());
 }
 
 // setters and getters

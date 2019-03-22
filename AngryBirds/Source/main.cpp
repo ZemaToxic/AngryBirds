@@ -64,10 +64,10 @@ void init()
 	bBirb->setProgram(light_program);
 
 	// Obstacles etc
-	bObstacle1 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, { 2, 5  }, { 10, 2 });
-	bObstacle2 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, { 4, 10 }, { 10, 2 });
-	bObstacle3 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, { 6, 15 }, { 10, 2 });
-	bObstacle4 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, { 8, 20 }, { 10, 2 });
+	bObstacle1 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, { 35, -15 }, { 2, 6 });
+	bObstacle2 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, { 45, -15 }, { 2, 6 });
+	bObstacle3 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, { 40, -10 }, { 10, 2 });
+	bObstacle4 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, { 40, -8 }, { 2, 2 });
 
 	bObstacle1->setProgram(light_program);
 	bObstacle2->setProgram(light_program);
@@ -84,6 +84,14 @@ void update()
 	{
 		std::cout << "Update Called\n";
 	}
+
+	// Update Camera (Check for keyboard input)
+	main_camera->update_camera(utils::key_state);
+	// Update Light (Check for keyboard input)
+	main_light->updateLight(utils::key_state);
+	// Options Menu (quit etc)
+	utils::optionsMenu(utils::key_state);
+
 	// At some point in process you must tell the world when to step, or the timings for physics equations
 	const float32 time_step = 1.0f / 120.0f;
 	const int32 velocity_iterations = 6;
@@ -107,13 +115,6 @@ void update()
 	bObstacle2->update();
 	bObstacle3->update();
 	bObstacle4->update();
-
-	// Update Camera (Check for keyboard input)
-	main_camera->update_camera(utils::key_state);
-	// Update Light (Check for keyboard input)
-	main_light->updateLight(utils::key_state);
-	// Options Menu (quit etc)
-	utils::optionsMenu(utils::key_state);
 
 	glutPostRedisplay(); // Do not move this.
 }
