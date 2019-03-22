@@ -56,24 +56,15 @@
     <ClInclude Include="Header\box2DObj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Header\options.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Light.fs">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Assets\Shaders\Light.vs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Assets\Shaders\mesh.fs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Assets\Shaders\mesh.vs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Assets\Shaders\VAO_Triangle.fs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Assets\Shaders\VAO_Triangle.vs">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

@@ -1,10 +1,12 @@
 // Includes
 #include "../Header/utils.h"
+#include "../Header/options.h"
 #include "../Header/camera.h"
 #include "../Header/light.h"
 #include "../Header/shaderLoader.h"
 #include "../Header/box2DObj.h"
 
+Options* options;
 GLuint main_program;
 ShaderLoader shader_loader;
 
@@ -79,18 +81,12 @@ void init()
 // Update called each "frame"
 void update()
 {
-	// For Debug purposes
-	if (utils::DEBUG)
-	{
-		std::cout << "Update Called\n";
-	}
-
 	// Update Camera (Check for keyboard input)
 	main_camera->update_camera(utils::key_state);
 	// Update Light (Check for keyboard input)
 	main_light->updateLight(utils::key_state);
 	// Options Menu (quit etc)
-	utils::optionsMenu(utils::key_state);
+	options->optionsMenu(utils::key_state);
 
 	// At some point in process you must tell the world when to step, or the timings for physics equations
 	const float32 time_step = 1.0f / 120.0f;
@@ -122,12 +118,6 @@ void update()
 // Render... does as it says
 void render()
 {
-	// For Debug purposes
-	if (utils::DEBUG)
-	{
-		std::cout << "Render Called\n";
-	}
-
 	// Set the background colour
 	glClearColor(0.0f, 0.0, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -153,11 +143,6 @@ void render()
 // Main function Loop
 int main(int argc, char** argv)
 {
-	// For Debug purposes
-	if (utils::DEBUG)
-	{
-		std::cout << "Main Called\n";
-	}
 	// Init glut
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);

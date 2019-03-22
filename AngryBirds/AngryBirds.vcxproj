@@ -31,16 +31,13 @@
     <ClInclude Include="Header\camera.h" />
     <ClInclude Include="Header\GameModel.h" />
     <ClInclude Include="Header\light.h" />
+    <ClInclude Include="Header\options.h" />
     <ClInclude Include="Header\shaderLoader.h" />
     <ClInclude Include="Header\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Light.fs" />
     <None Include="Assets\Shaders\Light.vs" />
-    <None Include="Assets\Shaders\mesh.fs" />
-    <None Include="Assets\Shaders\mesh.vs" />
-    <None Include="Assets\Shaders\VAO_Triangle.fs" />
-    <None Include="Assets\Shaders\VAO_Triangle.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

@@ -39,7 +39,7 @@ void Camera::update_camera(unsigned char value[])
 	}
 
 	// For Debug purposes
-	if (utils::DEBUG)
+	if (utils::getDebug())
 	{
 		printf("Camera Speed: %f \n", cameraSpeed);
 		printf("Camera Position: x: %f, y: %f, z: %f \n", camera_pos_.x, camera_pos_.y, camera_pos_.z);
@@ -84,12 +84,6 @@ void Camera::update_camera(unsigned char value[])
 		cameraSpeed = cameraSpeed - 1.0f;
 	}
 
-	// Enable Debugging 
-	if (value[unsigned char('[')] == BUTTON_DOWN)
-	{
-		system("CLS");
-		utils::DEBUG = !utils::DEBUG;
-	}
 	view_matrix_ = lookAt(camera_pos_, camera_pos_ + camera_front_, camera_up_);
 
 }

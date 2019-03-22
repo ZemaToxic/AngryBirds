@@ -122,14 +122,19 @@ namespace utils
 
 	static unsigned char key_state[255];
 
-	inline void optionsMenu(unsigned char key[])
+	// Return DEBUG
+	inline int getDebug()
 	{
-		// Quit.
-		if (key[unsigned char('\\')] == 1)
+		return DEBUG;
+	}
+
+	inline void setDebug()
+	{
+		if(DEBUG)
 		{
-			glutDestroyWindow(0);
-			exit(0);
+			DEBUG = false;
 		}
+		else { DEBUG = true; }
 	}
 
 	// Check if a keyboard Button is pressed
@@ -158,9 +163,9 @@ namespace utils
 	{
 		std::vector<VertexFormat> Vertices;
 
-		Vertices.push_back(VertexFormat(Position(0.0f, 1.0f, 0.0f), TexCoord(1, 1), Normals(0.0f, 0.0f, 1.0)));
-		Vertices.push_back(VertexFormat(Position(1.0, 0.0, 0.0), TexCoord(0, 1), Normals(0.0f, 0.0f, 1.0)));
-		Vertices.push_back(VertexFormat(Position(-1.0, 0.0, 0.0), TexCoord(1, 0), Normals(0.0f, 0.0f, 1.0)));
+		Vertices.emplace_back(Position(0.0f, 1.0f, 0.0f), TexCoord(1, 1), Normals(0.0f, 0.0f, 1.0));
+		Vertices.emplace_back(Position(1.0, 0.0, 0.0), TexCoord(0, 1), Normals(0.0f, 0.0f, 1.0));
+		Vertices.emplace_back(Position(-1.0, 0.0, 0.0), TexCoord(1, 0), Normals(0.0f, 0.0f, 1.0));
 
 
 		std::vector<GLuint> Indices;
@@ -178,10 +183,10 @@ namespace utils
 	inline void setQuadData(std::vector<VertexFormat>& vertices, std::vector<GLuint>& indices)
 	{
 		std::vector<VertexFormat> Vertices;
-		Vertices.push_back(VertexFormat(Position(-1.0f, -1.0f, 1.0f), TexCoord(1.0, 1.0), Normals(0.0f, 0.0f, 1.0)));
-		Vertices.push_back(VertexFormat(Position(1.0f, -1.0f, 1.0f), TexCoord(0.0, 1.0), Normals(0.0f, 0.0f, 1.0)));
-		Vertices.push_back(VertexFormat(Position(1.0f, 1.0f, 1.0f), TexCoord(0.0, 0.0), Normals(0.0f, 0.0f, 1.0)));
-		Vertices.push_back(VertexFormat(Position(-1.0f, 1.0f, 1.0f), TexCoord(1.0, 0.0), Normals(0.0f, 0.0f, 1.0)));
+		Vertices.emplace_back(Position(-1.0f, -1.0f, 1.0f), TexCoord(1.0, 1.0), Normals(0.0f, 0.0f, 1.0));
+		Vertices.emplace_back(Position(1.0f, -1.0f, 1.0f), TexCoord(0.0, 1.0), Normals(0.0f, 0.0f, 1.0));
+		Vertices.emplace_back(Position(1.0f, 1.0f, 1.0f), TexCoord(0.0, 0.0), Normals(0.0f, 0.0f, 1.0));
+		Vertices.emplace_back(Position(-1.0f, 1.0f, 1.0f), TexCoord(1.0, 0.0), Normals(0.0f, 0.0f, 1.0));
 
 		std::vector<GLuint> Indices;
 		Indices.push_back(0);
@@ -202,40 +207,40 @@ namespace utils
 		color = glm::vec3(1.0f, 1.0f, 1.0f);
 		std::vector<VertexFormat> Vertices;
 		//back
-		Vertices.push_back(VertexFormat(Position(-1.0f, -1.0, -1.0), TexCoord(0.0, 1.0), Normals(0.0f, 0.0f, -1.0)));
-		Vertices.push_back(VertexFormat(Position(1.0, -1.0, -1.0), TexCoord(0.0, 0.0), Normals(0.0f, 0.0f, -1.0)));
-		Vertices.push_back(VertexFormat(Position(1.0, 1.0, -1.0), TexCoord(1.0, 0.0), Normals(0.0f, 0.0f, -1.0)));
-		Vertices.push_back(VertexFormat(Position(-1.0, 1.0, -1.0), TexCoord(1.0, 1.0), Normals(0.0f, 0.0f, -1.0)));
+		Vertices.emplace_back(Position(-1.0f, -1.0, -1.0), TexCoord(0.0, 1.0), Normals(0.0f, 0.0f, -1.0));
+		Vertices.emplace_back(Position(1.0, -1.0, -1.0), TexCoord(0.0, 0.0), Normals(0.0f, 0.0f, -1.0));
+		Vertices.emplace_back(Position(1.0, 1.0, -1.0), TexCoord(1.0, 0.0), Normals(0.0f, 0.0f, -1.0));
+		Vertices.emplace_back(Position(-1.0, 1.0, -1.0), TexCoord(1.0, 1.0), Normals(0.0f, 0.0f, -1.0));
 
 		//front
-		Vertices.push_back(VertexFormat(Position(-1.0f, -1.0f, 1.0f), TexCoord(1.0, 1.0), Normals(0.0f, 0.0f, 1.0)));
-		Vertices.push_back(VertexFormat(Position(1.0f, -1.0f, 1.0f), TexCoord(0.0, 1.0), Normals(0.0f, 0.0f, 1.0)));
-		Vertices.push_back(VertexFormat(Position(1.0f, 1.0f, 1.0f), TexCoord(0.0, 0.0), Normals(0.0f, 0.0f, 1.0)));
-		Vertices.push_back(VertexFormat(Position(-1.0f, 1.0f, 1.0f), TexCoord(1.0, 0.0), Normals(0.0f, 0.0f, 1.0)));
+		Vertices.emplace_back(Position(-1.0f, -1.0f, 1.0f), TexCoord(1.0, 1.0), Normals(0.0f, 0.0f, 1.0));
+		Vertices.emplace_back(Position(1.0f, -1.0f, 1.0f), TexCoord(0.0, 1.0), Normals(0.0f, 0.0f, 1.0));
+		Vertices.emplace_back(Position(1.0f, 1.0f, 1.0f), TexCoord(0.0, 0.0), Normals(0.0f, 0.0f, 1.0));
+		Vertices.emplace_back(Position(-1.0f, 1.0f, 1.0f), TexCoord(1.0, 0.0), Normals(0.0f, 0.0f, 1.0));
 
 		//left
-		Vertices.push_back(VertexFormat(Position(-1.0, 1.0, 1.0), TexCoord(0.0, 0.0), Normals(-1.0f, 0.0f, 0.0)));
-		Vertices.push_back(VertexFormat(Position(-1.0, 1.0, -1.0), TexCoord(1.0, 0.0), Normals(-1.0f, 0.0f, 0.0)));
-		Vertices.push_back(VertexFormat(Position(-1.0, -1.0, -1.0), TexCoord(1.0, 1.0), Normals(-1.0f, 0.0f, 0.0)));
-		Vertices.push_back(VertexFormat(Position(-1.0f, -1.0, 1.0), TexCoord(0.0, 1.0), Normals(-1.0f, 0.0f, 0.0)));
+		Vertices.emplace_back(Position(-1.0, 1.0, 1.0), TexCoord(0.0, 0.0), Normals(-1.0f, 0.0f, 0.0));
+		Vertices.emplace_back(Position(-1.0, 1.0, -1.0), TexCoord(1.0, 0.0), Normals(-1.0f, 0.0f, 0.0));
+		Vertices.emplace_back(Position(-1.0, -1.0, -1.0), TexCoord(1.0, 1.0), Normals(-1.0f, 0.0f, 0.0));
+		Vertices.emplace_back(Position(-1.0f, -1.0, 1.0), TexCoord(0.0, 1.0), Normals(-1.0f, 0.0f, 0.0));
 
 		//right
-		Vertices.push_back(VertexFormat(Position(1.0, 1.0, 1.0), TexCoord(1.0, 0.0), Normals(1.0f, 0.0f, 0.0)));
-		Vertices.push_back(VertexFormat(Position(1.0, 1.0, -1.0), TexCoord(0.0, 0.0), Normals(1.0f, 0.0f, 0.0)));
-		Vertices.push_back(VertexFormat(Position(1.0f, -1.0, -1.0), TexCoord(0.0, 1.0), Normals(1.0f, 0.0f, 0.0)));
-		Vertices.push_back(VertexFormat(Position(1.0, -1.0, 1.0), TexCoord(1.0, 1.0), Normals(1.0f, 0.0f, 0.0)));
+		Vertices.emplace_back(Position(1.0, 1.0, 1.0), TexCoord(1.0, 0.0), Normals(1.0f, 0.0f, 0.0));
+		Vertices.emplace_back(Position(1.0, 1.0, -1.0), TexCoord(0.0, 0.0), Normals(1.0f, 0.0f, 0.0));
+		Vertices.emplace_back(Position(1.0f, -1.0, -1.0), TexCoord(0.0, 1.0), Normals(1.0f, 0.0f, 0.0));
+		Vertices.emplace_back(Position(1.0, -1.0, 1.0), TexCoord(1.0, 1.0), Normals(1.0f, 0.0f, 0.0));
 
 		//bottom
-		Vertices.push_back(VertexFormat(Position(-1.0f, -1.0, -1.0), TexCoord(1.0, 1.0), Normals(0.0f, -1.0f, 0.0)));
-		Vertices.push_back(VertexFormat(Position(1.0, -1.0, -1.0), TexCoord(0.0, 1.0), Normals(0.0f, -1.0f, 0.0)));
-		Vertices.push_back(VertexFormat(Position(1.0, -1.0, 1.0), TexCoord(0.0, 0.0), Normals(0.0f, -1.0f, 0.0)));
-		Vertices.push_back(VertexFormat(Position(-1.0, -1.0, 1.0), TexCoord(1.0, 0.0), Normals(0.0f, -1.0f, 0.0)));
+		Vertices.emplace_back(Position(-1.0f, -1.0, -1.0), TexCoord(1.0, 1.0), Normals(0.0f, -1.0f, 0.0));
+		Vertices.emplace_back(Position(1.0, -1.0, -1.0), TexCoord(0.0, 1.0), Normals(0.0f, -1.0f, 0.0));
+		Vertices.emplace_back(Position(1.0, -1.0, 1.0), TexCoord(0.0, 0.0), Normals(0.0f, -1.0f, 0.0));
+		Vertices.emplace_back(Position(-1.0, -1.0, 1.0), TexCoord(1.0, 0.0), Normals(0.0f, -1.0f, 0.0));
 
 		//top
-		Vertices.push_back(VertexFormat(Position(-1.0f, 1.0f, -1.0f), TexCoord(0.0, 1.0), Normals(0.0f, 1.0f, 0.0)));
-		Vertices.push_back(VertexFormat(Position(1.0f, 1.0f, -1.0f), TexCoord(1.0, 1.0), Normals(0.0f, 1.0f, 0.0)));
-		Vertices.push_back(VertexFormat(Position(1.0f, 1.0f, 1.0f), TexCoord(1.0, 0.0), Normals(0.0f, 1.0f, 0.0)));
-		Vertices.push_back(VertexFormat(Position(-1.0f, 1.0f, 1.0f), TexCoord(0.0, 0.0), Normals(0.0f, 1.0f, 0.0)));
+		Vertices.emplace_back(Position(-1.0f, 1.0f, -1.0f), TexCoord(0.0, 1.0), Normals(0.0f, 1.0f, 0.0));
+		Vertices.emplace_back(Position(1.0f, 1.0f, -1.0f), TexCoord(1.0, 1.0), Normals(0.0f, 1.0f, 0.0));
+		Vertices.emplace_back(Position(1.0f, 1.0f, 1.0f), TexCoord(1.0, 0.0), Normals(0.0f, 1.0f, 0.0));
+		Vertices.emplace_back(Position(-1.0f, 1.0f, 1.0f), TexCoord(0.0, 0.0), Normals(0.0f, 1.0f, 0.0));
 
 		std::vector<GLuint> Indices;
 
