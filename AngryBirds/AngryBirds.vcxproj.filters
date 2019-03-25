@@ -36,6 +36,9 @@
     <ClCompile Include="Source\box2DObj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\camera.h">
@@ -56,7 +59,7 @@
     <ClInclude Include="Header\box2DObj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header\options.h">
+    <ClInclude Include="Header\input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

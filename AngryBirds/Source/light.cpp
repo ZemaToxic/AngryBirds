@@ -33,10 +33,12 @@ Light::Light(Camera* _camera, float _ambientStrength, float _specularStrength, g
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (GLvoid*)nullptr);
 
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(offsetof(VertexFormat, VertexFormat::texCoord)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat),
+	                      (void*)(offsetof(VertexFormat, VertexFormat::texCoord)));
 
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(offsetof(VertexFormat, VertexFormat::normal)));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat),
+	                      (void*)(offsetof(VertexFormat, VertexFormat::normal)));
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -90,36 +92,36 @@ void Light::render()
 void Light::updateLight(unsigned char keystate[])
 {
 	// Reset Light
-	if (keystate[unsigned char('r')] == BUTTON_DOWN)
+	if (keystate[unsigned char('r')] == INPUT_HOLD)
 	{
 		scale = glm::vec3(1.0f, 1.0f, 1.0f);
 		localPosition = glm::vec3(0.0f, 10.0f, 95.0f);
 		angle = glm::vec3(0.1f, 0.5f, 0.2f);
 	}
 	// Move the Light forward and backward
-	if (keystate[unsigned char('i')] == BUTTON_DOWN)
+	if (keystate[unsigned char('i')] == INPUT_HOLD)
 	{
 		moveForward();
 	}
-	if (keystate[unsigned char('k')] == BUTTON_DOWN)
+	if (keystate[unsigned char('k')] == INPUT_HOLD)
 	{
 		moveBackward();
 	}
 	// Move the ligth left and right
-	if (keystate[unsigned char('j')] == BUTTON_DOWN)
+	if (keystate[unsigned char('j')] == INPUT_HOLD)
 	{
 		moveLeft();
 	}
-	if (keystate[unsigned char('l')] == BUTTON_DOWN)
+	if (keystate[unsigned char('l')] == INPUT_HOLD)
 	{
 		moveRight();
 	}
 	// Move the Light up and down
-	if (keystate[unsigned char('u')] == BUTTON_DOWN)
+	if (keystate[unsigned char('u')] == INPUT_HOLD)
 	{
 		moveUp();
 	}
-	if (keystate[unsigned char('o')] == BUTTON_DOWN)
+	if (keystate[unsigned char('o')] == INPUT_HOLD)
 	{
 		moveDown();
 	}

@@ -15,9 +15,10 @@ class box2D : public GameModel
 {
 public:
 
-	box2D(b2World* _world, collider_shape _colliderShape, ModelType modelType, b2FixtureDef& _fixtureDef, bool _isDynamic,
-	             std::string ObjTexture, Camera* camera, Light* light, b2Vec2 _initPos = {0.0f, 0.0f},
-	             b2Vec2 _initSize = {1.0f, 1.0f});
+	box2D(b2World* _world, collider_shape _colliderShape, ModelType modelType, b2FixtureDef& _fixtureDef,
+	      bool _isDynamic,
+	      std::string ObjTexture, Camera* camera, Light* light, b2Vec2 _initPos = {0.0f, 0.0f},
+	      b2Vec2 _initSize = {1.0f, 1.0f});
 
 	void process();
 	b2Body* get_body() { return (m_body); }
@@ -32,5 +33,4 @@ private:
 	b2World* m_world;
 	b2Body* m_body;
 	collider_shape m_Collider;
-};	
-
+};

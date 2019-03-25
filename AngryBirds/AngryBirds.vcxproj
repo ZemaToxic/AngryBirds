@@ -22,6 +22,7 @@
     <ClCompile Include="Source\box2DObj.cpp" />
     <ClCompile Include="Source\camera.cpp" />
     <ClCompile Include="Source\GameModel.cpp" />
+    <ClCompile Include="Source\input.cpp" />
     <ClCompile Include="Source\light.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\shaderLoader.cpp" />
@@ -30,8 +31,8 @@
     <ClInclude Include="Header\box2DObj.h" />
     <ClInclude Include="Header\camera.h" />
     <ClInclude Include="Header\GameModel.h" />
+    <ClInclude Include="Header\input.h" />
     <ClInclude Include="Header\light.h" />
-    <ClInclude Include="Header\options.h" />
     <ClInclude Include="Header\shaderLoader.h" />
     <ClInclude Include="Header\utils.h" />
   </ItemGroup>

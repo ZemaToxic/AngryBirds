@@ -1,9 +1,6 @@
 #pragma once
 #include "utils.h"
 
-#define BUTTON_UP 0
-#define BUTTON_DOWN 1
-
 class Camera
 {
 public:

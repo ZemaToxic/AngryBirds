@@ -1,8 +1,9 @@
 #include "../Header/box2DObj.h"
 
 
-box2D::box2D(b2World* _world, collider_shape _colliderShape, ModelType modelType, b2FixtureDef& _fixtureDef, bool _isDynamic,
-                           std::string ObjTexture, Camera* camera, Light* light, b2Vec2 _initPos, b2Vec2 _initSize) :
+box2D::box2D(b2World* _world, collider_shape _colliderShape, ModelType modelType, b2FixtureDef& _fixtureDef,
+             bool _isDynamic,
+             std::string ObjTexture, Camera* camera, Light* light, b2Vec2 _initPos, b2Vec2 _initSize) :
 	GameModel(modelType, camera, ObjTexture, light, utils::ambientStrength, utils::specularStrength), m_world(_world)
 {
 	b2BodyDef body_def;

@@ -17,7 +17,23 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include "input.h"
 
+
+//enum InputState //Put later in utils
+//{
+//	INPUT_FIRST_RELEASE,
+//	INPUT_RELEASE,
+//	INPUT_FIRST_PRESS,
+//	INPUT_HOLD
+//};
+//
+//enum InputMouse //Put later in utils
+//{
+//	MOUSE_LEFT,
+//	MOUSE_MIDDLE,
+//	MOUSE_RIGHT,
+//};
 
 // Model Type
 enum ModelType
@@ -122,33 +138,6 @@ namespace utils
 
 	static unsigned char key_state[255];
 
-	// Return DEBUG
-	inline int getDebug()
-	{
-		return DEBUG;
-	}
-
-	inline void setDebug()
-	{
-		if(DEBUG)
-		{
-			DEBUG = false;
-		}
-		else { DEBUG = true; }
-	}
-
-	// Check if a keyboard Button is pressed
-	inline void keyboard(const unsigned char key, int x, int y)
-	{
-		key_state[key] = BUTTON_DOWN;
-	}
-
-	// Check if a keyboard Button is Released
-	inline void keyboard_up(const unsigned char key, int x, int y)
-	{
-		key_state[key] = BUTTON_UP;
-	}
-
 	// Handle window resizing
 	inline void handle_resize(int w, int h)
 	{
@@ -157,6 +146,10 @@ namespace utils
 		glLoadIdentity();
 		gluPerspective(45.0, static_cast<double>(w) / static_cast<double>(h), 1.0, 200.0);
 	}
+
+
+
+	/********************************************/
 
 	// Setting Model Data
 	inline void setTriData(std::vector<VertexFormat>& vertices, std::vector<GLuint>& indices)

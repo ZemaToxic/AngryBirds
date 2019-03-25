@@ -1,5 +1,4 @@
 #include "../Header/camera.h"
-
 float cameraSpeed = 0.5f;
 
 Camera::Camera()
@@ -17,8 +16,8 @@ void Camera::initialize()
 
 	// Define the Matrix(s)
 	view_matrix_ = lookAt(camera_pos_, camera_pos_ + camera_front_, camera_up_);
-	projection_matrix_ = glm::perspective(70.0f, float(utils::window_width) / float(utils::window_height), 1.0f, 10000.f);
-	
+	projection_matrix_ = glm::perspective(70.0f, float(utils::window_width) / float(utils::window_height), 1.0f,
+	                                      10000.f);
 	// For Debug purposes
 	if (utils::DEBUG)
 	{
@@ -29,7 +28,7 @@ void Camera::initialize()
 void Camera::update_camera(unsigned char value[])
 {
 	// Reset Camera
-	if (value[unsigned char('r')] == BUTTON_DOWN)
+	if (value[unsigned char('r')] == INPUT_HOLD)
 	{
 		// Define the camera
 		camera_pos_ = glm::vec3(0.0f, 0.0f, 70.0f);
@@ -39,53 +38,52 @@ void Camera::update_camera(unsigned char value[])
 	}
 
 	// For Debug purposes
-	if (utils::getDebug())
+	if (utils::DEBUG)
 	{
 		printf("Camera Speed: %f \n", cameraSpeed);
 		printf("Camera Position: x: %f, y: %f, z: %f \n", camera_pos_.x, camera_pos_.y, camera_pos_.z);
 		printf("Camera Looking at: x: %f, y: %f, z: %f \n", camera_front_.x, camera_front_.y, camera_front_.z);
 	}
 	// Forward / Backward
-	if (value[unsigned char('w')] == BUTTON_DOWN)
+	if (value[unsigned char('w')] == INPUT_HOLD)
 	{
 		moveForward();
 	}
-	if (value[unsigned char('s')] == BUTTON_DOWN)
+	if (value[unsigned char('s')] == INPUT_HOLD)
 	{
 		moveBackward();
 	}
 	// Left / Right
-	if (value[unsigned char('a')] == BUTTON_DOWN)
+	if (value[unsigned char('a')] == INPUT_HOLD)
 	{
 		moveLeft();
 	}
-	if (value[unsigned char('d')] == BUTTON_DOWN)
+	if (value[unsigned char('d')] == INPUT_HOLD)
 	{
 		moveRight();
 	}
 	// Up / Down
-	if (value[unsigned char('x')] == BUTTON_DOWN)
+	if (value[unsigned char('x')] == INPUT_HOLD)
 	{
 		moveUp();
 	}
-	if (value[unsigned char('z')] == BUTTON_DOWN)
+	if (value[unsigned char('z')] == INPUT_HOLD)
 	{
 		moveDown();
 	}
 
 
 	// Increase / Decrease Camera speed
-	if (value[unsigned char('q')] == BUTTON_DOWN)
+	if (value[unsigned char('q')] == INPUT_HOLD)
 	{
 		cameraSpeed = cameraSpeed + 1.0f;
 	}
-	if (value[unsigned char('e')] == BUTTON_DOWN)
+	if (value[unsigned char('e')] == INPUT_HOLD)
 	{
 		cameraSpeed = cameraSpeed - 1.0f;
 	}
 
 	view_matrix_ = lookAt(camera_pos_, camera_pos_ + camera_front_, camera_up_);
-
 }
 
 glm::vec3& Camera::get_camera_position()

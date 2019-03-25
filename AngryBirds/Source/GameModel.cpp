@@ -52,10 +52,12 @@ GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileNa
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (GLvoid*)nullptr);
 
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(offsetof(VertexFormat, VertexFormat::texCoord)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat),
+	                      (void*)(offsetof(VertexFormat, VertexFormat::texCoord)));
 
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(offsetof(VertexFormat, VertexFormat::normal)));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat),
+	                      (void*)(offsetof(VertexFormat, VertexFormat::normal)));
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -161,7 +163,7 @@ void GameModel::setTexture(std::string texFileName)
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	printf("Filename \"%s\" Loaded succesfully \n", texFileName.c_str());
+	printf("Filename \"%s\" Loaded successfully \n", texFileName.c_str());
 }
 
 // setters and getters
