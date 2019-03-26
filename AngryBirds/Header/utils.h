@@ -15,6 +15,7 @@
 
 // Main includes
 #include <vector>
+#include <array>
 #include <iostream>
 #include <fstream>
 #include "input.h"
@@ -130,10 +131,6 @@ namespace utils
 		glLoadIdentity();
 		gluPerspective(45.0, static_cast<double>(w) / static_cast<double>(h), 1.0, 200.0);
 	}
-
-
-
-	/********************************************/
 
 	// Setting Model Data
 	inline void setTriData(std::vector<VertexFormat>& vertices, std::vector<GLuint>& indices)

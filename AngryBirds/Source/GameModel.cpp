@@ -1,19 +1,14 @@
 #include "../Header/GameModel.h"
 #include "../Header/camera.h"
-#include "../Header/light.h"
 
-GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileName, Light* _light,
-                     float _ambientStrength, float _specularStrength)
+GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileName)
 {
 	camera = _camera;
-	light = _light;
 
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	position = glm::vec3(0.0, 0.0, 0.0);
 	color = glm::vec3(1.0f, 1.0f, 1.0f);
 
-	ambientStrength = _ambientStrength;
-	specularStrength = _specularStrength;
 	speed = 0.05f;
 	rotationAxis = glm::vec3(0.0f, 0.0f, 1.0f);
 
@@ -63,6 +58,7 @@ GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileNa
 
 GameModel::~GameModel()
 {
+
 }
 
 void GameModel::update()
@@ -85,12 +81,16 @@ void GameModel::render(/*glm::vec3 pos*/)
 	model = translate(model, position);
 	model = glm::scale(model, scale);
 
-	glm::mat4 vp = camera->get_projection_matrix() * camera->get_view_matrix();
+	// Projection
+	// glm::mat4 vp = camera->get_projection_matrix() * camera->get_view_matrix();
+	// Orthographic
+	glm::mat4 vp = camera->get_ortho_matrix() * camera->get_view_matrix();
 	GLint vpLoc = glGetUniformLocation(program, "vp");
 	glUniformMatrix4fv(vpLoc, 1, GL_FALSE, value_ptr(vp));
 
 	GLint modelLoc = glGetUniformLocation(program, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
+
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
 	glBindVertexArray(0);

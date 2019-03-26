@@ -30,9 +30,6 @@
     <ClCompile Include="Source\GameModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\light.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\box2DObj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -53,21 +50,21 @@
     <ClInclude Include="Header\GameModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header\light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Header\box2DObj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header\input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Header\contact.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\Light.fs">
+    <None Include="Assets\Shaders\texture.fs">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Assets\Shaders\Light.vs">
+    <None Include="Assets\Shaders\texture.vs">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

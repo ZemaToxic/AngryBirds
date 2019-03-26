@@ -8,8 +8,7 @@ class Camera;
 class GameModel
 {
 public:
-	GameModel(ModelType modelType, Camera* _camera, std::string texFileName, Light* light, float ambientStrength,
-	          float specularStrength);
+	GameModel(ModelType modelType, Camera* _camera, std::string texFileName);
 	~GameModel();
 
 	void update();

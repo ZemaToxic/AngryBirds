@@ -23,22 +23,21 @@
     <ClCompile Include="Source\camera.cpp" />
     <ClCompile Include="Source\GameModel.cpp" />
     <ClCompile Include="Source\input.cpp" />
-    <ClCompile Include="Source\light.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\shaderLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\box2DObj.h" />
     <ClInclude Include="Header\camera.h" />
+    <ClInclude Include="Header\contact.h" />
     <ClInclude Include="Header\GameModel.h" />
     <ClInclude Include="Header\input.h" />
-    <ClInclude Include="Header\light.h" />
     <ClInclude Include="Header\shaderLoader.h" />
     <ClInclude Include="Header\utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\Light.fs" />
-    <None Include="Assets\Shaders\Light.vs" />
+    <None Include="Assets\Shaders\texture.fs" />
+    <None Include="Assets\Shaders\texture.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

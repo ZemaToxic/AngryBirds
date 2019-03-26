@@ -16,8 +16,9 @@ void Camera::initialize()
 
 	// Define the Matrix(s)
 	view_matrix_ = lookAt(camera_pos_, camera_pos_ + camera_front_, camera_up_);
-	//projection_matrix_ = glm::perspective(70.0f, float(utils::window_width) / float(utils::window_height), 1.0f, 10000.f);
-	projection_matrix_ = glm::ortho(0.0f, 1000.0f, 0.0f, 500.0f,0.1f, 100.0f);
+	projection_matrix_ = glm::perspective(70.0f, float(utils::window_width) / float(utils::window_height), 1.0f, 10000.f);
+	ortho_matrix_ = glm::ortho(0.0f, float(utils::window_width), 0.0f, float(utils::window_height), 0.1f, 100.0f);
+
 	// For Debug purposes
 	if (utils::DEBUG)
 	{
@@ -27,23 +28,6 @@ void Camera::initialize()
 
 void Camera::update_camera(unsigned char value[])
 {
-	// Reset Camera
-	if (value[unsigned char('r')] == INPUT_HOLD)
-	{
-		// Define the camera
-		camera_pos_ = glm::vec3(0.0f, 0.0f, 70.0f);
-		camera_front_ = glm::vec3(0.0f, 0.0f, -1.0f);
-		camera_up_ = glm::vec3(0.0f, 1.0f, 0.0f);
-		cameraSpeed = 0.1f;
-	}
-
-	// For Debug purposes
-	if (utils::DEBUG)
-	{
-		printf("Camera Speed: %f \n", cameraSpeed);
-		printf("Camera Position: x: %f, y: %f, z: %f \n", camera_pos_.x, camera_pos_.y, camera_pos_.z);
-		printf("Camera Looking at: x: %f, y: %f, z: %f \n", camera_front_.x, camera_front_.y, camera_front_.z);
-	}
 	// Forward / Backward
 	if (Input::GetInstance().GetKeyState('w') == INPUT_HOLD)
 	{
@@ -53,35 +37,6 @@ void Camera::update_camera(unsigned char value[])
 	{
 		moveBackward();
 	}
-	// Left / Right
-	if (Input::GetInstance().GetKeyState('a') == INPUT_HOLD)
-	{
-		moveLeft();
-	}
-	if (Input::GetInstance().GetKeyState('d') == INPUT_HOLD)
-	{
-		moveRight();
-	}
-	// Up / Down
-	if (Input::GetInstance().GetKeyState('x') == INPUT_HOLD)
-	{
-		moveUp();
-	}
-	if (Input::GetInstance().GetKeyState('z') == INPUT_HOLD)
-	{
-		moveDown();
-	}
-
-	// Increase / Decrease Camera speed
-	if (Input::GetInstance().GetKeyState('q') == INPUT_HOLD)
-	{
-		cameraSpeed = cameraSpeed + 1.0f;
-	}
-	if (Input::GetInstance().GetKeyState('e') == INPUT_HOLD)
-	{
-		cameraSpeed = cameraSpeed - 1.0f;
-	}
-
 	view_matrix_ = lookAt(camera_pos_, camera_pos_ + camera_front_, camera_up_);
 }
 
