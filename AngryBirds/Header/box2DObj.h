@@ -33,4 +33,5 @@ private:
 	b2World* m_world;
 	b2Body* m_body;
 	collider_shape m_Collider;
+	b2Body* birb;
 };

@@ -16,8 +16,8 @@ void Camera::initialize()
 
 	// Define the Matrix(s)
 	view_matrix_ = lookAt(camera_pos_, camera_pos_ + camera_front_, camera_up_);
-	projection_matrix_ = glm::perspective(70.0f, float(utils::window_width) / float(utils::window_height), 1.0f,
-	                                      10000.f);
+	//projection_matrix_ = glm::perspective(70.0f, float(utils::window_width) / float(utils::window_height), 1.0f, 10000.f);
+	projection_matrix_ = glm::ortho(0.0f, 1000.0f, 0.0f, 500.0f,0.1f, 100.0f);
 	// For Debug purposes
 	if (utils::DEBUG)
 	{
@@ -45,40 +45,39 @@ void Camera::update_camera(unsigned char value[])
 		printf("Camera Looking at: x: %f, y: %f, z: %f \n", camera_front_.x, camera_front_.y, camera_front_.z);
 	}
 	// Forward / Backward
-	if (value[unsigned char('w')] == INPUT_HOLD)
+	if (Input::GetInstance().GetKeyState('w') == INPUT_HOLD)
 	{
 		moveForward();
 	}
-	if (value[unsigned char('s')] == INPUT_HOLD)
+	if (Input::GetInstance().GetKeyState('s') == INPUT_HOLD)
 	{
 		moveBackward();
 	}
 	// Left / Right
-	if (value[unsigned char('a')] == INPUT_HOLD)
+	if (Input::GetInstance().GetKeyState('a') == INPUT_HOLD)
 	{
 		moveLeft();
 	}
-	if (value[unsigned char('d')] == INPUT_HOLD)
+	if (Input::GetInstance().GetKeyState('d') == INPUT_HOLD)
 	{
 		moveRight();
 	}
 	// Up / Down
-	if (value[unsigned char('x')] == INPUT_HOLD)
+	if (Input::GetInstance().GetKeyState('x') == INPUT_HOLD)
 	{
 		moveUp();
 	}
-	if (value[unsigned char('z')] == INPUT_HOLD)
+	if (Input::GetInstance().GetKeyState('z') == INPUT_HOLD)
 	{
 		moveDown();
 	}
 
-
 	// Increase / Decrease Camera speed
-	if (value[unsigned char('q')] == INPUT_HOLD)
+	if (Input::GetInstance().GetKeyState('q') == INPUT_HOLD)
 	{
 		cameraSpeed = cameraSpeed + 1.0f;
 	}
-	if (value[unsigned char('e')] == INPUT_HOLD)
+	if (Input::GetInstance().GetKeyState('e') == INPUT_HOLD)
 	{
 		cameraSpeed = cameraSpeed - 1.0f;
 	}
@@ -109,6 +108,11 @@ glm::mat4& Camera::get_view_matrix()
 glm::mat4& Camera::get_projection_matrix()
 {
 	return projection_matrix_;
+}
+
+glm::mat4& Camera::get_ortho_matrix()
+{
+	return ortho_matrix_;
 }
 
 // Camera Movement 

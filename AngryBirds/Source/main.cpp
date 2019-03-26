@@ -24,28 +24,58 @@ box2D* bObstacle3;
 box2D* bObstacle4;
 
 
-	//Calls to the input class from here down
-	/********************************************/
-	inline void KeyDown(unsigned char key, int x, int y)
-	{
-		Input::GetInstance().KeyboardDown(key, x, y);
-	}
+//Calls to the input class from here down
+/********************************************/
+inline void KeyDown(unsigned char key, int x, int y)
+{
+	Input::GetInstance().KeyboardDown(key, x, y);
+}
 
-	inline void KeyUp(unsigned char key, int x, int y)
-	{
-		Input::GetInstance().KeyboardUp(key, x, y);
-	}
+inline void KeyUp(unsigned char key, int x, int y)
+{
+	Input::GetInstance().KeyboardUp(key, x, y);
+}
 
-	inline void Mouse(int button, int glutState, int x, int y)
-	{
-		Input::GetInstance().MouseClick(button, glutState, x, y);
-	}
+inline void Mouse(int button, int glutState, int x, int y)
+{
+	Input::GetInstance().MouseClick(button, glutState, x, y);
+}
 
-	inline void PassiveMouse(int x, int y)
-	{
-		Input::GetInstance().MouseMove(x, y);
-	}
+inline void PassiveMouse(int x, int y)
+{
+	Input::GetInstance().MouseMove(x, y);
+}
 
+
+void getWindowPos()
+{
+	float x = Input::GetInstance().GetMousePos().x;
+	float y = utils::window_height - Input::GetInstance().GetMousePos().y;
+
+	/*
+		Screen	  0, 0			      1000, 0
+		World	-65, 30				    65, 30
+				 
+				 _______________________
+				|						|
+				|						|
+				|						|
+				|		   0,0			|
+				|						|
+				|						|
+				|_______________________|
+				 
+		
+		Screen	-65, -30				 65, -30
+ 		World	  0, 500			   1000, 500
+
+	*/
+
+	printf("Mouse Pos x:%f y:%f\n", x, y);
+
+
+	bBirb->set_pos({x, y});
+}
 
 // Initialise the "Game"
 void init()
@@ -71,22 +101,21 @@ void init()
 	fixture_def.restitution = 0.5f;
 
 	// Create a new Cube and pass the light value
-	backGround = new GameModel(kQuad, main_camera, "Assets/background.jpg", main_light, utils::ambientStrength,
-	                           utils::specularStrength);
+	backGround = new GameModel(kQuad, main_camera, "Assets/background.jpg", main_light, utils::ambientStrength, utils::specularStrength);
 	backGround->setProgram(light_program);
-	backGround->setScale({-75.0f, -40.0f, 1.0f});
+	backGround->setScale({75.0f, -40.0f, 1.0f});
 
 	// Ground																																							// Pos	   // Size
-	bGround = new box2D(world, BOX, kQuad, fixture_def, false, "Assets/ground.jpg", main_camera, main_light, {0, -35}, {75, 10});
+	bGround = new box2D(world, BOX, kQuad, fixture_def, false, "Assets/ground.jpg", main_camera, main_light, {500,250 }, {75, 10});
 	bGround->setProgram(light_program);
 	// Bird (should fall and land on ground)																															// Pos	   // Size
-	bBirb = new box2D(world, CIRCLE, kSphere, fixture_def, true, "Assets/birb.jpg", main_camera, main_light, {0, 0}, {4, 4});
+	bBirb = new box2D(world, CIRCLE, kSphere, fixture_def, false, "Assets/birb.jpg", main_camera, main_light, { 0, 0 }, { 4, 4 });
 	bBirb->setProgram(light_program);
 
 	// Obstacles etc
 	bObstacle1 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, {35, -15}, {2, 6});
 	bObstacle2 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, {45, -15}, {2, 6});
-	bObstacle3 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, {40, -10}, {10, 2});
+	bObstacle3 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, {40, -10}, {100, 20});
 	bObstacle4 = new box2D(world, BOX, kQuad, fixture_def, true, "Assets/wood.jpg", main_camera, main_light, {40, -8}, {2, 2});
 
 	bObstacle1->setProgram(light_program);
@@ -115,6 +144,13 @@ void update()
 	// Update box2D Box physics for the birb
 	bBirb->process();
 	bBirb->update();
+
+	if (Input::GetInstance().GetMouseState(0) == INPUT_HOLD)
+	{
+		getWindowPos();
+	}
+
+	//printf("Birb pos x:%f y:%f\n", bBirb->get_pos().x, bBirb->get_pos().y);
 
 	// Obstacles
 	bObstacle1->process();

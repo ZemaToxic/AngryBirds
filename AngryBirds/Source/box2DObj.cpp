@@ -25,19 +25,19 @@ box2D::box2D(b2World* _world, collider_shape _colliderShape, ModelType modelType
 	switch (_colliderShape)
 	{
 	case BOX:
-		{
-			box_shape.SetAsBox(_initSize.x, _initSize.y);
-			//The shape defined for the fixture also defines size of the object
-			_fixtureDef.shape = &box_shape;
-		}
-		break;
+	{
+		box_shape.SetAsBox(_initSize.x, _initSize.y);
+		//The shape defined for the fixture also defines size of the object
+		_fixtureDef.shape = &box_shape;
+	}
+	break;
 	case CIRCLE:
-		{
-			circle_shape.m_radius = _initSize.x / 2;
-			//The shape defined for the fixture also defines size of the object
-			_fixtureDef.shape = &circle_shape;
-		}
-		break;
+	{
+		circle_shape.m_radius = _initSize.x / 2;
+		//The shape defined for the fixture also defines size of the object
+		_fixtureDef.shape = &circle_shape;
+	}
+	break;
 	default:
 		break;
 	}
@@ -49,12 +49,8 @@ box2D::box2D(b2World* _world, collider_shape _colliderShape, ModelType modelType
 
 void box2D::process()
 {
-	setPosition(glm::vec3(m_body->GetPosition().x, m_body->GetPosition().y, 1.0f));
-
 	//printf("BOX 2D position: %f, %f \n", m_body->GetPosition().x, m_body->GetPosition().y);
-
-	//The openGL object gets given the position calculated by box2d
-	//setRotation(glm::degrees(m_body->GetAngle()));
+	setPosition(glm::vec3(m_body->GetPosition().x, m_body->GetPosition().y, 1.0f));
 }
 
 void box2D::set_pos(b2Vec2 NewPos)

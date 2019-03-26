@@ -19,22 +19,6 @@
 #include <fstream>
 #include "input.h"
 
-
-//enum InputState //Put later in utils
-//{
-//	INPUT_FIRST_RELEASE,
-//	INPUT_RELEASE,
-//	INPUT_FIRST_PRESS,
-//	INPUT_HOLD
-//};
-//
-//enum InputMouse //Put later in utils
-//{
-//	MOUSE_LEFT,
-//	MOUSE_MIDDLE,
-//	MOUSE_RIGHT,
-//};
-
 // Model Type
 enum ModelType
 {

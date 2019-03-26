@@ -16,6 +16,8 @@ public:
 
 	glm::mat4& get_view_matrix();
 	glm::mat4& get_projection_matrix();
+	glm::mat4& get_ortho_matrix();
+
 
 	// Camera Movement functions
 	void moveForward();
@@ -29,6 +31,7 @@ private:
 
 	glm::mat4 view_matrix_;
 	glm::mat4 projection_matrix_;
+	glm::mat4 ortho_matrix_;
 
 	glm::vec3 camera_pos_;
 	glm::vec3 camera_front_;

@@ -106,3 +106,6 @@ private:
 	char cLastKeyPressed;
 	InputState m_CurrentState;
 };
+
+
+

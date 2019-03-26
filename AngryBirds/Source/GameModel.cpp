@@ -52,12 +52,10 @@ GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileNa
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (GLvoid*)nullptr);
 
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat),
-	                      (void*)(offsetof(VertexFormat, VertexFormat::texCoord)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(offsetof(VertexFormat, VertexFormat::texCoord)));
 
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat),
-	                      (void*)(offsetof(VertexFormat, VertexFormat::normal)));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(offsetof(VertexFormat, VertexFormat::normal)));
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -93,31 +91,6 @@ void GameModel::render(/*glm::vec3 pos*/)
 
 	GLint modelLoc = glGetUniformLocation(program, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
-
-
-	// lighting calculations
-
-	GLint colorLoc = glGetUniformLocation(program, "objectColor");
-	glUniform3f(colorLoc, color.x, color.y, color.z);
-
-	GLuint cameraPosLoc = glGetUniformLocation(program, "cameraPos");
-	glUniform3f(cameraPosLoc, camera->get_camera_position().x, camera->get_camera_position().y,
-	            camera->get_camera_position().z);
-
-	GLuint lightPosLoc = glGetUniformLocation(program, "lightPos");
-	glUniform3f(lightPosLoc, this->light->getPosition().x, this->light->getPosition().y, this->light->getPosition().z);
-
-	GLuint lightColorLoc = glGetUniformLocation(program, "lightColor");
-	glUniform3f(lightColorLoc, this->light->getColour().x, this->light->getColour().y, this->light->getColour().z);
-
-
-	GLuint specularStrengthLoc = glGetUniformLocation(program, "specularStrength");
-	glUniform1f(specularStrengthLoc, specularStrength);
-
-	GLuint ambientStrengthLoc = glGetUniformLocation(program, "ambientStrength");
-	glUniform1f(ambientStrengthLoc, ambientStrength);
-
-
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
 	glBindVertexArray(0);
