@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{cd311476-6d35-4d74-9d8b-d22317bf0d49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Unused">
+      <UniqueIdentifier>{08842532-cb4f-44c9-afba-bbc833c2fde0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\camera.cpp">
@@ -58,6 +61,18 @@
     </ClInclude>
     <ClInclude Include="Header\contact.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Unused\iforce2d_collision_anatomy.h">
+      <Filter>Unused</Filter>
+    </ClInclude>
+    <ClInclude Include="Unused\iforce2d_collision_callbacks1.h">
+      <Filter>Unused</Filter>
+    </ClInclude>
+    <ClInclude Include="Unused\iforce2d_collision_callbacks2.h">
+      <Filter>Unused</Filter>
+    </ClInclude>
+    <ClInclude Include="Unused\iforce2d_collision_filtering.h">
+      <Filter>Unused</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@ public:
 	{
 		//check if fixture A was a box2D obj
 		void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
-		std::cout << contact << '\n';
+		//std::cout << contact << '\n';
 		if (bodyUserData)
 			static_cast<box2D*>(bodyUserData)->startContact();
 

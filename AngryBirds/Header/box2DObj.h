@@ -2,7 +2,7 @@
 
 #include "utils.h"
 #include "GameModel.h"
-#include "../Dependencies/Box2D/Box2D.h"
+
 
 enum collider_shape
 {

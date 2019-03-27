@@ -34,6 +34,10 @@
     <ClInclude Include="Header\input.h" />
     <ClInclude Include="Header\shaderLoader.h" />
     <ClInclude Include="Header\utils.h" />
+    <ClInclude Include="Unused\iforce2d_collision_anatomy.h" />
+    <ClInclude Include="Unused\iforce2d_collision_callbacks1.h" />
+    <ClInclude Include="Unused\iforce2d_collision_callbacks2.h" />
+    <ClInclude Include="Unused\iforce2d_collision_filtering.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\texture.fs" />

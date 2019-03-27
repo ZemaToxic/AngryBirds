@@ -17,11 +17,6 @@ b2World* world;
 box2D* bGround;
 box2D* bBirb;
 
-box2D* bObstacle1;
-box2D* bObstacle2;
-box2D* bObstacle3;
-box2D* bObstacle4;
-
 std::vector<box2D*> box2DOobj;
 
 //Calls to the input class from here down
@@ -66,12 +61,9 @@ void getWindowPos()
 				 
  		Screen	  0, 500			   1000, 500
  		World	  0, 500			   1000, 500
-
 	*/
 
 	printf("Mouse Pos x:%f y:%f\n", x, y);
-
-
 	bBirb->set_pos({x, y});
 }
 
@@ -109,13 +101,10 @@ void init()
 	bBirb = new box2D(world, CIRCLE, kSphere, player, fixture_def, true, "Assets/birb.jpg", main_camera, program, { 0, 0 }, { 25, 25});
 
 	// Obstacles etc
-	bObstacle1 = new box2D(world, BOX, kQuad, obstacle, fixture_def, true, "Assets/wood.jpg", main_camera, program, {800, 110}, {20, 60});
-	bObstacle2 = new box2D(world, BOX, kQuad, obstacle, fixture_def, true, "Assets/wood.jpg", main_camera, program, {900, 110}, {20, 60});
-	bObstacle3 = new box2D(world, BOX, kQuad, obstacle, fixture_def, true, "Assets/wood.jpg", main_camera, program, {850, 250}, {100, 20});
-	bObstacle4 = new box2D(world, BOX, kQuad, obstacle, fixture_def, true, "Assets/wood.jpg", main_camera, program, {850, 300}, {20, 20});
-
-	std::cout << world->GetBodyList();
-
+	box2DOobj.push_back(new box2D(world, BOX, kQuad, obstacle, fixture_def, true, "Assets/wood.jpg", main_camera, program, {800, 110}, {20, 60}));
+	box2DOobj.push_back(new box2D(world, BOX, kQuad, obstacle, fixture_def, true, "Assets/wood.jpg", main_camera, program, {900, 110}, {20, 60}));
+	box2DOobj.push_back(new box2D(world, BOX, kQuad, obstacle, fixture_def, true, "Assets/wood.jpg", main_camera, program, {850, 250}, {100, 20}));
+	box2DOobj.push_back(new box2D(world, BOX, kQuad, obstacle, fixture_def, true, "Assets/wood.jpg", main_camera, program, {850, 300}, {20, 20}));
 }
 
 // Update called each "frame"
@@ -140,12 +129,15 @@ void update()
 	}
 
 	// Obstacles
+	for (auto& i : box2DOobj)
+	{
+		if(!i->get_body()->IsActive())
+		{
+			delete i;
+		}
+		i->process();
+	}
 
-	bObstacle1->process();
-	bObstacle2->process();
-	bObstacle3->process();
-	bObstacle4->process();
-	
 	glutPostRedisplay(); // Do not move this.
 }
 
@@ -164,10 +156,10 @@ void render()
 	bBirb->render();
 
 	// Obstacles
-	bObstacle1->render();
-	bObstacle2->render();
-	bObstacle3->render();
-	bObstacle4->render();
+	for (auto& i : box2DOobj)
+	{
+		i->render();
+	}
 
 	glutSwapBuffers(); // swap buffers
 }

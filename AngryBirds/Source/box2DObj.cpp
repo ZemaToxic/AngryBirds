@@ -57,12 +57,12 @@ box2D::box2D(b2World* _world, collider_shape _colliderShape, ModelType modelType
 		break;
 	case obstacle:
 		{
-			health = 5;
+			health = 25;
 		}
 		break;
 	case enemy:
 		{
-			health = 5;
+			health = 25;
 		}
 		break;
 	}
@@ -73,16 +73,17 @@ box2D::box2D(b2World* _world, collider_shape _colliderShape, ModelType modelType
 
 void box2D::process()
 {
-	if(!m_body->IsActive()) return;
 	check_collision();
 	//printf("BOX 2D position: %f, %f \n", m_body->GetPosition().x, m_body->GetPosition().y);
 	if (health == 0)
 	{
 		m_body->SetActive(false);
-		return;
 	}
-	setPosition(glm::vec3(m_body->GetPosition().x, m_body->GetPosition().y, 1.0f));
-	update();
+	else
+	{
+		setPosition(glm::vec3(m_body->GetPosition().x, m_body->GetPosition().y, 1.0f));
+		update();
+	}
 }
 
 void box2D::set_pos(b2Vec2 NewPos)
@@ -113,4 +114,9 @@ void box2D::check_collision()
 	{
 		contact = false;
 	}
+}
+
+box2D::~box2D()
+{
+	m_body->GetWorld()->DestroyBody(m_body);
 }

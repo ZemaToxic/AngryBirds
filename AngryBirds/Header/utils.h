@@ -12,6 +12,7 @@
 #include "../Dependencies/glm/gtc/type_ptr.hpp"
 #include "../Dependencies/include/glew.h"
 #include "../Dependencies/include/freeglut.h"
+#include "../Dependencies/Box2D/Box2D.h"
 
 // Main includes
 #include <vector>
