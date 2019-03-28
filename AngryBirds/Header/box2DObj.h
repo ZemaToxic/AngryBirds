@@ -46,7 +46,7 @@ private:
 	//The definitions for the world and body
 	b2World* m_world;
 	b2Body* m_body;
+	objType m_obj;
 	collider_shape m_Collider;
-	b2Body* birb;
 	int health;
 };

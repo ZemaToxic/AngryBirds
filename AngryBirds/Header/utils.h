@@ -19,6 +19,7 @@
 #include <array>
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
 #include "input.h"
 
 // Model Type

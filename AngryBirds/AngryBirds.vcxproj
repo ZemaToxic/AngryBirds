@@ -101,8 +101,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <SourcePath>$(ProjectDir)Header\;$(ProjectDir)Source\;$(SourcePath)</SourcePath>
-    <LibraryPath>$(ProjectDir)Lib\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)Dependencies\Lib\;$(LibraryPath)</LibraryPath>
     <IncludePath>$(ProjectDir)Dependencies\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(ProjectDir)Dependencies\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)Dependencies\Lib\;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)Header\;$(ProjectDir)Source\;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

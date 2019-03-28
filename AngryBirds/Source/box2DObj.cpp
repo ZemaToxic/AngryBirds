@@ -5,8 +5,18 @@ box2D::box2D(b2World* _world, collider_shape _colliderShape, ModelType modelType
              b2FixtureDef& _fixtureDef, bool _isDynamic, std::string ObjTexture, Camera* camera, GLuint program,
              b2Vec2 _initPos, b2Vec2 _initSize) : GameModel(modelType, camera, ObjTexture), m_world(_world)
 {
-	setProgram(program);
+	if (!_initPos.x)
+	{
+		_initPos.x = 500.0f;
+		_initPos.y = 250.0f;
+	}
+	if (!_initSize.x)
+	{
+		_initSize.x = 25;
+		_initSize.y = 25;
+	}
 
+	setProgram(program);
 	b2BodyDef body_def;
 	body_def.fixedRotation = false;
 	body_def.position.Set(_initPos.x, _initPos.y);
@@ -47,22 +57,26 @@ box2D::box2D(b2World* _world, collider_shape _colliderShape, ModelType modelType
 	{
 	case player:
 		{
+		m_obj = _objType;
 			health = -1;
 		}
 		break;
 	case scenery:
 		{
+		m_obj = _objType;
 			health = -1;
 		}
 		break;
 	case obstacle:
 		{
-			health = 25;
+		m_obj = _objType;
+			health = 3;
 		}
 		break;
 	case enemy:
 		{
-			health = 25;
+		m_obj = _objType;
+			health = 5;
 		}
 		break;
 	}
@@ -74,7 +88,6 @@ box2D::box2D(b2World* _world, collider_shape _colliderShape, ModelType modelType
 void box2D::process()
 {
 	check_collision();
-	//printf("BOX 2D position: %f, %f \n", m_body->GetPosition().x, m_body->GetPosition().y);
 	if (health == 0)
 	{
 		m_body->SetActive(false);
@@ -94,7 +107,7 @@ void box2D::set_pos(b2Vec2 NewPos)
 
 void box2D::apply_damage()
 {
-	if (health <= -10) return;
+	if (health <= -1) return;
 
 	health = health - 1;
 	printf("Obj Health = %d\n", health);
@@ -102,17 +115,21 @@ void box2D::apply_damage()
 
 void box2D::check_collision()
 {
-	if (!contact)
+	if (m_obj != scenery)
 	{
-		if (m_contacting)
+		if (!contact)
 		{
-			contact = true;
-			apply_damage();
+			if (m_contacting)
+			{
+				contact = true;
+				apply_damage();
+			}
 		}
-	}
-	if (!m_contacting)
-	{
-		contact = false;
+		if (!m_contacting)
+		{
+			contact = false;
+		}
+		
 	}
 }
 
