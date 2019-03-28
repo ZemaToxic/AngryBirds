@@ -1,66 +1,69 @@
 #include "utils.h"
 #include "ShaderLoader.h"
-
 class Light;
 class Camera;
-
 #pragma once
 class GameModel
-{
-public:
-	GameModel(ModelType modelType, Camera* _camera, std::string texFileName);
-	~GameModel();
+	{
+	public:
+		GameModel(ModelType modelType, Camera* _camera, std::string texFileName);
 
-	void update();
-	void render();
+		~GameModel();
 
-	void setPosition(glm::vec3 _position);
-	void setScale(glm::vec3 _scale);
-	void setRotation(glm::vec3 angle);
-	void setRotationAxis(glm::vec3 rotationAxis);
+		void update();
 
-	void setColor(glm::vec3 _color);
-	void setCamera(Camera* camera);
-	void setSpeed(float _speed);
-	void setProgram(GLuint program);
-	void setTexture(std::string texFileName);
-	void setSpecularStrength(float strength);
+		void render();
 
-	glm::vec3 getPosition();
-	glm::vec3 getScale();
-	glm::vec3 getRotation();
-	glm::vec3 getRotationAxis();
+		void setPosition(glm::vec3 _position);
 
-	glm::vec3 getColor();
+		void setScale(glm::vec3 _scale);
 
-	void rotate(glm::vec3 axis);
+		void setRotation(glm::vec3 angle);
 
+		void setRotationAxis(glm::vec3 rotationAxis);
 
-	Camera* camera;
-	Light* light;
+		void setColor(glm::vec3 _color);
 
-	bool bIsTextureSet = false;
+		void setCamera(Camera* camera);
 
-	float speed;
+		void setSpeed(float _speed);
 
-	std::vector<VertexFormat> vertices;
-	std::vector<GLuint> indices;
+		void setProgram(GLuint program);
 
-	int width, height;
-	glm::vec3 position;
-	glm::vec3 scale;
-	glm::vec3 angle;
-	glm::vec3 rotationAxis;
-	glm::vec3 color;
+		void setTexture(std::string texFileName);
 
-	GLuint vao;
-	GLuint vbo;
-	GLuint ebo;
-	GLuint texture;
-	GLuint program;
+		void setSpecularStrength(float strength);
 
-	glm::mat4 model;
+		glm::vec3 getPosition();
 
-	float specularStrength;
-	float ambientStrength;
-};
+		glm::vec3 getScale();
+
+		glm::vec3 getRotation();
+
+		glm::vec3 getRotationAxis();
+
+		glm::vec3 getColor();
+
+		void rotate(glm::vec3 axis);
+
+		Camera* camera;
+		Light* light;
+		bool bIsTextureSet = false;
+		float speed;
+		std::vector<VertexFormat> vertices;
+		std::vector<GLuint> indices;
+		int width, height;
+		glm::vec3 position;
+		glm::vec3 scale;
+		glm::vec3 angle;
+		glm::vec3 rotationAxis;
+		glm::vec3 color;
+		GLuint vao;
+		GLuint vbo;
+		GLuint ebo;
+		GLuint texture;
+		GLuint program;
+		glm::mat4 model;
+		float specularStrength;
+		float ambientStrength;
+	};
