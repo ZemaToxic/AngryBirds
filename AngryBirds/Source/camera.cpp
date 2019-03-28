@@ -10,7 +10,7 @@ Camera::~Camera()
 void Camera::initialize()
 {
 	// Define the camera
-	camera_pos_ = glm::vec3(0.0f, 0.0f, 70.0f);
+	camera_pos_ = glm::vec3(0.0f, 0.0f, 10.0f);
 	camera_front_ = glm::vec3(0.0f, 0.0f, -1.0f);
 	camera_up_ = glm::vec3(0.0f, 1.0f, 0.0f);
 
@@ -26,7 +26,7 @@ void Camera::initialize()
 	}
 }
 
-void Camera::update_camera(unsigned char value[])
+void Camera::update_camera()
 {
 	// Forward / Backward
 	if (Input::GetInstance().GetKeyState('w') == INPUT_HOLD)

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Source\box2DObj.cpp" />
     <ClCompile Include="Source\camera.cpp" />
+    <ClCompile Include="Source\game.cpp" />
     <ClCompile Include="Source\GameModel.cpp" />
     <ClCompile Include="Source\input.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -30,8 +31,10 @@
     <ClInclude Include="Header\box2DObj.h" />
     <ClInclude Include="Header\camera.h" />
     <ClInclude Include="Header\contact.h" />
+    <ClInclude Include="Header\game.h" />
     <ClInclude Include="Header\GameModel.h" />
     <ClInclude Include="Header\input.h" />
+    <ClInclude Include="Header\level.h" />
     <ClInclude Include="Header\shaderLoader.h" />
     <ClInclude Include="Header\utils.h" />
     <ClInclude Include="Unused\iforce2d_collision_anatomy.h" />

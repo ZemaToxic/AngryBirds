@@ -1,10 +1,13 @@
 #pragma once
 #include "utils.h"
+#include "level.h"
 
 class Game
 {
 public:
-	void init();
-	void render();
-	void update();
+	static void getWindowPos();
+	static void createLevel();
+	static void init();
+	static void render();
+	static void update();
 };

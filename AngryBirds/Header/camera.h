@@ -8,7 +8,7 @@ public:
 	~Camera();
 
 	void initialize();
-	void update_camera(unsigned char value[]);
+	void update_camera();
 
 	glm::vec3& get_camera_position();
 	glm::vec3& get_camera_front();

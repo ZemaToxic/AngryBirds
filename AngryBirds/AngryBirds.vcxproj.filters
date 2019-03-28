@@ -39,6 +39,9 @@
     <ClCompile Include="Source\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\camera.h">
@@ -73,6 +76,12 @@
     </ClInclude>
     <ClInclude Include="Unused\iforce2d_collision_filtering.h">
       <Filter>Unused</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\level.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
