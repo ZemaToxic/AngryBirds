@@ -77,11 +77,8 @@ class Input
 		static Input* s_pInput;
 	private:
 		Input();
-
 		Input(const Input& _kr) = delete;
-
 		Input& operator=(const Input& _kr) = delete;
-
 		InputState KeyState[255];
 		InputState MouseState[3];
 		glm::vec3 m_MousePos;

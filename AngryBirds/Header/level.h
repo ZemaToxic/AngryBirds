@@ -10,9 +10,7 @@ class Level
 	{
 	public:
 		void setLevel(int _level);
-
 		int getLevel();
-
 		int level = 1;
 	};
 

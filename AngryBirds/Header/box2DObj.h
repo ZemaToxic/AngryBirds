@@ -10,10 +10,10 @@ enum collider_shape
 
 enum objType
 	{
-		scenery	=	0x0001,
-		player =	0x0002,
-		obstacle =  0x0004,
-		enemy =		0x0008,
+		scenery = 0x0001,
+		player = 0x0002,
+		obstacle = 0x0004,
+		enemy = 0x0008,
 	};
 
 
@@ -21,15 +21,11 @@ enum objType
 class box2D : public GameModel
 	{
 	public:
-		box2D(b2World* _world, collider_shape _colliderShape, ModelType modelType, objType _objType, uint16 _collideWith, b2FixtureDef& _fixtureDef, bool _isDynamic, std::string ObjTexture, Camera* camera, GLuint program, b2Vec2 _initPos = {utils::window_width / 2, utils::window_height / 2}, b2Vec2 _initSize = {25.0f, 25.0f});
-
+		box2D(b2World* _world, ModelType modelType, objType _objType, b2FixtureDef& _fixtureDef, bool _isDynamic, std::string ObjTexture, Camera* camera, GLuint program, b2Vec2 _initPos = {utils::window_width / 2, utils::window_height / 2}, b2Vec2 _initSize = {25.0f, 25.0f});
 		void process();
-
 		void apply_damage();
-
 		void check_collision();
-
-		int getObjType();
+		int getObjType() const;
 
 		b2Body* get_body() { return (m_body); }
 
@@ -42,10 +38,13 @@ class box2D : public GameModel
 
 		void startContact() { m_contacting = true; }
 
-		void endContact() { m_contacting = false;  contact = false;}
+		void endContact()
+		{
+			m_contacting = false;
+			contact = false;
+		}
 
 		~box2D();
-
 	private:
 
 		//The definitions for the world and body

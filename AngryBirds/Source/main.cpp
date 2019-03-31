@@ -62,9 +62,7 @@ int main(int argc, char** argv)
 	glutIdleFunc(update); // Update callback
 	glutMainLoop(); // Main loop
 	return 0;
-}
-
-/* TO DO *//*
+}/* TO DO *//*
  *	Create multiple birbs with different 
  *		features
  *	Add industructable objects

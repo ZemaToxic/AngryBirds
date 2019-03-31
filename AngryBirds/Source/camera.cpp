@@ -1,8 +1,6 @@
 #include "../Header/camera.h"
 float cameraSpeed = 0.5f;
-
 Camera::Camera() = default;
-
 Camera::~Camera() = default;
 
 void Camera::initialize()
