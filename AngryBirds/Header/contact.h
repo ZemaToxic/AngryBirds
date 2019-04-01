@@ -1,59 +1,48 @@
 #pragma once
-
 #include  "utils.h"
 #include "../Dependencies/Box2D/Box2D.h"
 #include "box2DObj.h"
 
 class Contact : public b2ContactListener
-{
-public:
-	void BeginContact(b2Contact* contact) override
 	{
-		//box2D* objA;
-		//check if fixture A was a box2D obj
-		void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
-		if (bodyUserData)
-			static_cast<box2D*>(bodyUserData)->startContact();
-
-		box2D* objB;
-		//check if fixture B was a box2D obj
-		bodyUserData = contact->GetFixtureB()->GetBody()->GetUserData();
-		if (bodyUserData)
+	public:
+		void BeginContact(b2Contact* contact) override
 		{
-			objB = static_cast<box2D*>(bodyUserData);
-			b2Vec2 velB = objB->get_body()->GetLinearVelocity();
-			glm::vec3 vecB = { velB.x, velB.y, 0.0f };
-			float speedB = glm::length(vecB);
-
-			if (objB->get_body()->GetType() == b2_dynamicBody)
-			{
-				if (speedB > upper)
-				{
-					// Damage 
-					static_cast<box2D*>(bodyUserData)->startContact();
-				}
-				else if (speedB < lower)
-				{
-					//printf("Speed: %f \n", speedB);
+			//box2D* objA;
+			//check if fixture A was a box2D obj
+			auto body_user_data = contact->GetFixtureA()->GetBody()->GetUserData();
+			if (body_user_data) static_cast<box2D*>(body_user_data)->startContact();
+			//check if fixture B was a box2D obj
+			body_user_data = contact->GetFixtureB()->GetBody()->GetUserData();
+			if (body_user_data) {
+				auto* obj_b = static_cast<box2D*>(body_user_data);
+				const auto vel_b = obj_b->get_body()->GetLinearVelocity();
+				const glm::vec3 vec_b = {vel_b.x, vel_b.y, 0.0f};
+				const auto speed_b = length(vec_b);
+				if (obj_b->get_body()->GetType() == b2_dynamicBody) {
+					if (speed_b > upper) {
+						// Damage 
+						static_cast<box2D*>(body_user_data)->startContact();
+					}
+					else if (speed_b < lower) {
+						//printf("Speed: %f \n", speedB);
+					}
 				}
 			}
 		}
-	}
 
-	void EndContact(b2Contact* contact) override
-	{
-		//check if fixture A was a box2D obj
-		void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
-		if (bodyUserData)
-			static_cast<box2D*>(bodyUserData)->endContact();
+		void EndContact(b2Contact* contact) override
+		{
+			//check if fixture A was a box2D obj
+			auto body_user_data = contact->GetFixtureA()->GetBody()->GetUserData();
+			if (body_user_data) static_cast<box2D*>(body_user_data)->endContact();
 
-		//check if fixture B was a box2D obj
-		bodyUserData = contact->GetFixtureB()->GetBody()->GetUserData();
-		if (bodyUserData)
-			static_cast<box2D*>(bodyUserData)->endContact();
-	}
+			//check if fixture B was a box2D obj
+			body_user_data = contact->GetFixtureB()->GetBody()->GetUserData();
+			if (body_user_data) static_cast<box2D*>(body_user_data)->endContact();
+		}
 
-private:
-	const int upper = 50;
-	const int lower = 20;
-};
+	private:
+		const int upper = 200;
+		const int lower = 20;
+	};
