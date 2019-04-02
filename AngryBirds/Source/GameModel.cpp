@@ -1,11 +1,19 @@
 #include "../Header/GameModel.h"
 #include "../Header/camera.h"
 
-GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileName)
+GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileName, CameraType _cam)
 {
 	camera = _camera;
+	cam = _cam;
+	if (cam == ortho)
+	{
+		position = glm::vec3(0.0, 0.0, 0.0);
+	}
+	else
+	{
+		position = glm::vec3(500.0, 250.0, 250.0);
+	}
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
-	position = glm::vec3(0.0, 0.0, 0.0);
 	color = glm::vec3(1.0f, 1.0f, 1.0f);
 	speed = 0.05f;
 	rotationAxis = glm::vec3(0.0f, 0.0f, 1.0f);
@@ -47,11 +55,10 @@ GameModel::~GameModel() {}
 
 void GameModel::update()
 {
-	//model = glm::rotate(model,glm::radians(45.0f) * time, glm::vec3(0.0, 1.0, 0.0f));		
-	//model = glm::translate(model, position);
+
 }
 
-void GameModel::render(/*glm::vec3 pos*/)
+void GameModel::render()
 {
 	glUseProgram(program);
 	if (bIsTextureSet) {
@@ -62,11 +69,21 @@ void GameModel::render(/*glm::vec3 pos*/)
 	glm::mat4 model;
 	model = translate(model, position);
 	model = glm::scale(model, scale);
+	model = glm::rotate(model, angle.z, normalize(rotationAxis));
 
-	// Projection
-	// glm::mat4 vp = camera->get_projection_matrix() * camera->get_view_matrix();
-	// Orthographic
-	glm::mat4 vp = camera->get_ortho_matrix() * camera->get_view_matrix();
+	glm::mat4 vp;
+	switch (cam)
+	{
+	case ortho:
+		// Orthographic
+		vp = camera->get_ortho_matrix() * camera->get_view_matrix();
+		break;
+	case persepctive:
+		// Projection
+		vp = camera->get_projection_matrix() * camera->get_view_matrix();
+		break;;
+	}
+
 	GLint vpLoc = glGetUniformLocation(program, "vp");
 	glUniformMatrix4fv(vpLoc, 1, GL_FALSE, value_ptr(vp));
 	GLint modelLoc = glGetUniformLocation(program, "model");
@@ -78,9 +95,9 @@ void GameModel::render(/*glm::vec3 pos*/)
 
 void GameModel::rotate(glm::vec3 axis)
 {
-	this->angle.x += axis.x * speed * 20;
-	this->angle.y += axis.y * speed * 20;
-	this->angle.z += axis.z * speed * 20;
+	this->angle.x = axis.x;
+	this->angle.y = axis.y;
+	this->angle.z = axis.z;
 }
 
 void GameModel::setTexture(std::string texFileName)

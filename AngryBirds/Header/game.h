@@ -5,7 +5,8 @@
 class Game
 	{
 	public:
-		static void getWindowPos();
+		static void slingShotStart();
+		static void slingShotEnd();
 		static void createLevel();
 		static void init();
 		static void render();

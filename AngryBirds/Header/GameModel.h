@@ -2,11 +2,16 @@
 #include "ShaderLoader.h"
 class Light;
 class Camera;
+enum CameraType {
+	ortho,
+	persepctive
+};
+
 #pragma once
 class GameModel
 	{
 	public:
-		GameModel(ModelType modelType, Camera* _camera, std::string texFileName);
+		GameModel(ModelType modelType, Camera* _camera, std::string texFileName, CameraType = ortho);
 		~GameModel();
 		void update();
 		void render();
@@ -27,6 +32,7 @@ class GameModel
 		glm::vec3 getColor();
 		void rotate(glm::vec3 axis);
 		Camera* camera;
+		CameraType cam;
 		Light* light;
 		bool bIsTextureSet = false;
 		float speed;

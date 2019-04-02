@@ -24,6 +24,14 @@ void Camera::update_camera()
 	// Forward / Backward
 	if (Input::GetInstance().GetKeyState('w') == INPUT_HOLD) { moveForward(); }
 	if (Input::GetInstance().GetKeyState('s') == INPUT_HOLD) { moveBackward(); }
+	// Left / Right
+	if (Input::GetInstance().GetKeyState('a') == INPUT_HOLD) { moveLeft(); }
+	if (Input::GetInstance().GetKeyState('d') == INPUT_HOLD) { moveRight(); }
+	// Up / Down
+	if (Input::GetInstance().GetKeyState('q') == INPUT_HOLD) { moveUp(); }
+	if (Input::GetInstance().GetKeyState('e') == INPUT_HOLD) { moveDown(); }
+
+	if (Input::GetInstance().GetKeyState('z') == INPUT_HOLD) { printf("Camera location x:%f, y:%f z:%f \n",camera_pos_.x,camera_pos_.y,camera_pos_.y); }
 	view_matrix_ = lookAt(camera_pos_, camera_pos_ + camera_front_, camera_up_);
 }
 

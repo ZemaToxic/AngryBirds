@@ -14,6 +14,7 @@ enum objType
 		player = 0x0002,
 		obstacle = 0x0004,
 		enemy = 0x0008,
+		wall = 0x0016
 	};
 
 
@@ -51,6 +52,5 @@ class box2D : public GameModel
 		b2World* m_world;
 		b2Body* m_body;
 		objType m_obj;
-		collider_shape m_Collider;
 		int health;
 	};
