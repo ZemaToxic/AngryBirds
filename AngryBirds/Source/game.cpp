@@ -21,8 +21,6 @@ void Game::slingShotStart()
 	const auto x = Input::GetInstance().GetMousePos().x;
 	const auto y = utils::window_height - Input::GetInstance().GetMousePos().y;
 
-	//player_obj[0]->set_pos({ x, y });
-
 	if(startPoint.x <= 0)
 	{
 		startPoint = { x, y };
@@ -37,13 +35,20 @@ void Game::slingShotEnd()
 	const auto x = Input::GetInstance().GetMousePos().x;
 	const auto y = utils::window_height - Input::GetInstance().GetMousePos().y;
 
-	//player_obj[0]->set_pos({ x, y });
-
 	if (endPoint.x <= 0)
 	{
+		b2Vec2 multi = {5000000000, 5000000000};
+		b2Vec2 vect = startPoint - endPoint;
+
+		b2Vec2 force = {multi.x * vect.x, multi.y * vect.y};
+
 		endPoint = { x, y };
 		printf("Sling End -> x:%f y:%f \n", endPoint.x, endPoint.y);
-		player_obj[0]->get_body()->ApplyLinearImpulseToCenter({ 50000000,50000000 }, true);
+		player_obj[0]->get_body()->ApplyForceToCenter(force, true);
+
+		startPoint = { 0,0 };
+		endPoint = { 0,0 };
+		pressed = false;
 	}
 }
 
@@ -85,7 +90,7 @@ void Game::createLevel()
 		obstacle_obj.push_back(new box2D(world, kSphere, enemy, fixture_def, true, "Assets/pig.jpg", main_camera, program, {950, 75}, {25, 25}));
 
 		// Bird (should fall and land on ground)	
-		player_obj.push_back(new box2D(world, kSphere, player, fixture_def, true, "Assets/birb1.jpg", main_camera, program, {150, 75}, {25, 25}));
+		player_obj.push_back(new box2D(world, kSphere, player, fixture_def, true, "Assets/birb1.jpg", main_camera, program, {250, 75}, {25, 25}));
 		player_obj.push_back(new box2D(world, kSphere, player, fixture_def, true, "Assets/birb2.jpg", main_camera, program, {100, 75}, {25, 25}));
 		player_obj.push_back(new box2D(world, kSphere, player, fixture_def, true, "Assets/birb3.jpg", main_camera, program, {50, 75}, {25, 25}));
 	}
@@ -141,7 +146,7 @@ void Game::update()
 	if ((Input::GetInstance().GetMouseState(MOUSE_LEFT) == INPUT_RELEASE) && pressed == true) { slingShotEnd(); }
 	
 	// At some point in process you must tell the world when to step, or the timings for physics equations
-	const float32 time_step = 1.0f / 120.0f;
+	const float32 time_step = 1.0f / 60.0f;
 	const int32 velocity_iterations = 8;
 	const int32 position_iterations = 3;
 	world->Step(time_step, velocity_iterations, position_iterations);
