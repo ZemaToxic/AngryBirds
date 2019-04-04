@@ -11,9 +11,11 @@ box2D* b_ground;
 std::vector<box2D*> wall_obj;
 std::vector<box2D*> player_obj;
 std::vector<box2D*> obstacle_obj;
+std::vector<box2D*> indestructible_obj;
 
-b2Vec2 startPoint = { 0,0 };
-b2Vec2 endPoint = { 0,0 };
+glm::vec2 startPoint = { 0,0 };
+glm::vec2 endPoint = { 0,0 };
+float distance;
 bool pressed = false;
 
 void Game::slingShotStart()
@@ -37,32 +39,38 @@ void Game::slingShotEnd()
 
 	if (endPoint.x <= 0)
 	{
-		b2Vec2 multi = {5000000000, 5000000000};
-		b2Vec2 vect = startPoint - endPoint;
+		float multi = 5001000.0f;
+		glm::vec2 vect = glm::normalize(startPoint - endPoint);
 
-		b2Vec2 force = {multi.x * vect.x, multi.y * vect.y};
+		distance = glm::distance(startPoint, endPoint);
+		float forcef = distance * multi;
+		
+		b2Vec2 force = {forcef * vect.x, forcef * vect.y };
 
 		endPoint = { x, y };
 		printf("Sling End -> x:%f y:%f \n", endPoint.x, endPoint.y);
-		player_obj[0]->get_body()->ApplyForceToCenter(force, true);
+
+		player_obj[0]->get_body()->ApplyLinearImpulse(force, player_obj[0]->get_body()->GetPosition(), true);
 
 		startPoint = { 0,0 };
 		endPoint = { 0,0 };
 		pressed = false;
 	}
+
+	//player_obj[0]->set_pos({ x, y });
 }
 
 void Game::createLevel()
 {
 	// Init Box2D
-	const b2Vec2 gravity(0.0f, -980);
+	const b2Vec2 gravity(0.0f, -90.80);
 	world = new b2World(gravity);
 	world->SetContactListener(&contact_listener);
 	// Load the shaderLoader for the Light
 	const GLuint program = shader_loader.create_program((char*)"Assets/Shaders/texture.vs", (char*)"Assets/Shaders/texture.fs");
 	// A fixture is required for box 2d to make physics equations
 	b2FixtureDef fixture_def;
-	fixture_def.density = 0.02f;
+	fixture_def.density = 2.0f;
 	fixture_def.friction = 0.3f;
 	// Bouncyness (Higher = Bouncier)
 	fixture_def.restitution = 0.5f;
@@ -98,7 +106,7 @@ void Game::createLevel()
 	if (level.getLevel() == 2) {
 
 		// Obstacles (boards/planks etc)
-		obstacle_obj.push_back(new box2D(world, kQuad, scenery, fixture_def, true, "Assets/stone.jpg", main_camera, program, { 800, 110 }, { 20, 60 }));		
+		indestructible_obj.push_back(new box2D(world, kQuad, scenery, fixture_def, true, "Assets/stone.jpg", main_camera, program, { 800, 110 }, { 20, 60 }));
 		// Enemies (pigs etc)
 		obstacle_obj.push_back(new box2D(world, kSphere, enemy, fixture_def, true, "Assets/pig.jpg", main_camera, program, {750, 75}, {25, 25}));
 		
@@ -143,7 +151,7 @@ void Game::render()
 void Game::update()
 {
 	if (Input::GetInstance().GetMouseState(MOUSE_LEFT) == INPUT_HOLD) { slingShotStart(); }
-	if ((Input::GetInstance().GetMouseState(MOUSE_LEFT) == INPUT_RELEASE) && pressed == true) { slingShotEnd(); }
+	if ((Input::GetInstance().GetMouseState(MOUSE_LEFT) == INPUT_RELEASE) && pressed) { slingShotEnd(); }
 	
 	// At some point in process you must tell the world when to step, or the timings for physics equations
 	const float32 time_step = 1.0f / 60.0f;
