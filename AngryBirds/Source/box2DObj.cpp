@@ -76,7 +76,7 @@ void box2D::process()
 	if (health == 0) { m_body->SetActive(false); }
 	else {
 		setPosition(glm::vec3(m_body->GetPosition().x, m_body->GetPosition().y, 1.0f));
-		rotate({ 0, 0, m_body->GetAngle() });
+		rotate({ 0, 0, m_body->GetAngle()});
 		update();
 	}
 }

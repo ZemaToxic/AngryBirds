@@ -68,8 +68,8 @@ void GameModel::render()
 	}
 	glm::mat4 model;
 	model = translate(model, position);
+	model = glm::rotate(model, angle.z, rotationAxis);
 	model = glm::scale(model, scale);
-	model = glm::rotate(model, angle.z, normalize(rotationAxis));
 
 	glm::mat4 vp;
 	switch (cam)

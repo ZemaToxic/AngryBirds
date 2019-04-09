@@ -21,6 +21,15 @@
 #include <fstream>
 #include "input.h"
 
+// Game State
+enum GameState
+{
+	menu = 0,
+	game = 1,
+	gameover = 2,
+	quit = 3
+};
+
 // Model Type
 enum ModelType
 	{

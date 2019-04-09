@@ -43,6 +43,6 @@ class Contact : public b2ContactListener
 		}
 
 	private:
-		const int upper = 200;
-		const int lower = 20;
+		const int upper = 20;
+		const int lower = 2;
 	};
