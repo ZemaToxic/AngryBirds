@@ -12,8 +12,10 @@ void Camera::initialize()
 
 	// Define the Matrix(s)
 	view_matrix_ = lookAt(camera_pos_, camera_pos_ + camera_front_, camera_up_);
-	projection_matrix_ = glm::perspective(70.0f, float(utils::window_width) / float(utils::window_height), 1.0f, 10000.f);
-	ortho_matrix_ = glm::ortho(0.0f, float(utils::window_width) / 10, 0.0f, float(utils::window_height) / 10, 0.1f, 100.0f);
+	projection_matrix_ = glm::perspective(70.0f, float(utils::window_width) / float(utils::window_height), 1.0f,
+	                                      10000.f);
+	ortho_matrix_ = glm::ortho(0.0f, float(utils::window_width) / 10, 0.0f, float(utils::window_height) / 10, 0.1f,
+	                           100.0f);
 
 	// For Debug purposes
 	if (utils::DEBUG) { std::cout << "Camera Initialized\n"; }
@@ -31,7 +33,10 @@ void Camera::update_camera()
 	if (Input::GetInstance().GetKeyState('q') == INPUT_HOLD) { moveUp(); }
 	if (Input::GetInstance().GetKeyState('e') == INPUT_HOLD) { moveDown(); }
 
-	if (Input::GetInstance().GetKeyState('z') == INPUT_HOLD) { printf("Camera location x:%f, y:%f z:%f \n", camera_pos_.x, camera_pos_.y, camera_pos_.y); }
+	if (Input::GetInstance().GetKeyState('z') == INPUT_HOLD)
+	{
+		printf("Camera location x:%f, y:%f z:%f \n", camera_pos_.x, camera_pos_.y, camera_pos_.y);
+	}
 	view_matrix_ = lookAt(camera_pos_, camera_pos_ + camera_front_, camera_up_);
 }
 

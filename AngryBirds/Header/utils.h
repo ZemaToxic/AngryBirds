@@ -32,84 +32,92 @@ enum GameState
 
 // Model Type
 enum ModelType
-	{
-		kTriangle = 0,
-		kQuad = 1,
-		kCube = 2,
-		kSphere = 3
-	};
+{
+	kTriangle = 0,
+	kQuad = 1,
+	kCube = 2,
+	kSphere = 3
+};
 
 // Vertex Format
 struct Position
+{
+	float x, y, z;
+
+	Position(float _x, float _y, float _z)
 	{
-		float x, y, z;
+		x = _x;
+		y = _y;
+		z = _z;
+	}
 
-		Position(float _x, float _y, float _z)
-		{
-			x = _x;
-			y = _y;
-			z = _z;
-		}
-
-		Position() { }
-	};
+	Position()
+	{
+	}
+};
 
 struct TexCoord
+{
+	float u, v;
+
+	TexCoord(float _u, float _v)
 	{
-		float u, v;
+		u = _u;
+		v = _v;
+	}
 
-		TexCoord(float _u, float _v)
-		{
-			u = _u;
-			v = _v;
-		}
-
-		TexCoord() { }
-	};
+	TexCoord()
+	{
+	}
+};
 
 struct Normals
+{
+	float x, y, z;
+
+	Normals(float _x, float _y, float _z)
 	{
-		float x, y, z;
+		x = _x;
+		y = _y;
+		z = _z;
+	}
 
-		Normals(float _x, float _y, float _z)
-		{
-			x = _x;
-			y = _y;
-			z = _z;
-		}
-
-		Normals() { }
-	};
+	Normals()
+	{
+	}
+};
 
 struct VertexFormat
+{
+	Position pos;
+	TexCoord texCoord;
+	Normals normal;
+
+	VertexFormat(Position _pos, TexCoord _texCoord, Normals _normal)
 	{
-		Position pos;
-		TexCoord texCoord;
-		Normals normal;
+		pos = _pos;
+		texCoord = _texCoord;
+		normal = _normal;
+	}
 
-		VertexFormat(Position _pos, TexCoord _texCoord, Normals _normal)
-		{
-			pos = _pos;
-			texCoord = _texCoord;
-			normal = _normal;
-		}
-
-		VertexFormat() { }
-	};
+	VertexFormat()
+	{
+	}
+};
 
 struct IndexFormat
-	{
-		int x;
-		int y;
-		int z;
+{
+	int x;
+	int y;
+	int z;
 
-		IndexFormat(int _x, int _y, int _z)
-		{
-			x = _x;
-			y = _y;
-			z = _z;
-		}
-	};
+	IndexFormat(int _x, int _y, int _z)
+	{
+		x = _x;
+		y = _y;
+		z = _z;
+	}
+};
 
 namespace utils
 {
@@ -117,9 +125,11 @@ namespace utils
 	const static float window_pos_y = 150;
 	const static float window_width = 1000;
 	const static float window_height = 500;
+
 	static float ambientStrength = 1.0f;
 	static float specularStrength = 1.0f;
 	static bool DEBUG = false;
+	
 	static unsigned char key_state[255];
 
 	// Handle window resizing
@@ -155,13 +165,17 @@ namespace utils
 		Vertices.emplace_back(Position(1.0f, -1.0f, 1.0f), TexCoord(0.0, 1.0), Normals(0.0f, 0.0f, 1.0));
 		Vertices.emplace_back(Position(1.0f, 1.0f, 1.0f), TexCoord(0.0, 0.0), Normals(0.0f, 0.0f, 1.0));
 		Vertices.emplace_back(Position(-1.0f, 1.0f, 1.0f), TexCoord(1.0, 0.0), Normals(0.0f, 0.0f, 1.0));
+
 		std::vector<GLuint> Indices;
+		
 		Indices.push_back(0);
 		Indices.push_back(1);
 		Indices.push_back(2);
+		
 		Indices.push_back(0);
 		Indices.push_back(2);
 		Indices.push_back(3);
+
 		vertices.clear();
 		indices.clear();
 		vertices = Vertices;
@@ -258,11 +272,13 @@ namespace utils
 		float latitudeBands = 30;
 		float longitudeBands = 30;
 		float radius = 1.0f;
-		for (float latNumber = 0; latNumber <= latitudeBands; latNumber++) {
+		for (float latNumber = 0; latNumber <= latitudeBands; latNumber++)
+		{
 			float theta = latNumber * (float)3.14 / latitudeBands;
 			float sinTheta = sin(theta);
 			float cosTheta = cos(theta);
-			for (float longNumber = 0; longNumber <= longitudeBands; longNumber++) {
+			for (float longNumber = 0; longNumber <= longitudeBands; longNumber++)
+			{
 				float phi = (float)(longNumber * 2 * 3.14 / longitudeBands);
 				float sinPhi = sin(phi);
 				float cosPhi = cos(phi);
@@ -278,8 +294,10 @@ namespace utils
 				Vertices.push_back(vs);
 			}
 		}
-		for (GLuint latNumber = 0; latNumber < latitudeBands; latNumber++) {
-			for (GLuint longNumber = 0; longNumber < longitudeBands; longNumber++) {
+		for (GLuint latNumber = 0; latNumber < latitudeBands; latNumber++)
+		{
+			for (GLuint longNumber = 0; longNumber < longitudeBands; longNumber++)
+			{
 				GLuint first = (GLuint)((latNumber * (longitudeBands + 1)) + longNumber);
 				GLuint second = (GLuint)(first + longitudeBands + 1);
 				Indices.push_back(first);

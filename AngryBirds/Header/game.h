@@ -3,12 +3,12 @@
 #include "level.h"
 
 class Game
-	{
-	public:
-		static void slingShotStart();
-		static void slingShotEnd();
-		static void createLevel();
-		static void init();
-		static void render();
-		static void update();
-	};
+{
+public:
+	static void slingShotStart();
+	static void slingShotEnd();
+	static void create_scenes();
+	static void init();
+	static void render();
+	static void update();
+};

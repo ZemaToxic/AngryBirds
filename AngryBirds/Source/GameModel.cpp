@@ -17,17 +17,19 @@ GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileNa
 	color = glm::vec3(1.0f, 1.0f, 1.0f);
 	speed = 0.05f;
 	rotationAxis = glm::vec3(0.0f, 0.0f, 1.0f);
-	switch (modelType) {
-		case kTriangle: utils::setTriData(vertices, indices);
-			break;
-		case kQuad: utils::setQuadData(vertices, indices);
-			break;
-		case kCube: utils::setCubeData(vertices, indices);
-			break;
-		case kSphere: utils::setSphereData(vertices, indices);
-			break;
+	switch (modelType)
+	{
+	case kTriangle: utils::setTriData(vertices, indices);
+		break;
+	case kQuad: utils::setQuadData(vertices, indices);
+		break;
+	case kCube: utils::setCubeData(vertices, indices);
+		break;
+	case kSphere: utils::setSphereData(vertices, indices);
+		break;
 	}
-	for (auto item : vertices) {
+	for (auto item : vertices)
+	{
 		//printf("GAME MODEL position: %f, %f, %f \n", item.pos.x, item.pos.y, item.pos.z);
 	}
 	glGenVertexArrays(1, &vao);
@@ -44,24 +46,26 @@ GameModel::GameModel(ModelType modelType, Camera* _camera, std::string texFileNa
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (GLvoid*)nullptr);
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(offsetof(VertexFormat, VertexFormat::texCoord)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat),
+	                      (void*)(offsetof(VertexFormat, VertexFormat::texCoord)));
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(offsetof(VertexFormat, VertexFormat::normal)));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat),
+	                      (void*)(offsetof(VertexFormat, VertexFormat::normal)));
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
 
-GameModel::~GameModel() {}
+GameModel::~GameModel() = default;
 
 void GameModel::update()
 {
-
 }
 
 void GameModel::render()
 {
 	glUseProgram(program);
-	if (bIsTextureSet) {
+	if (bIsTextureSet)
+	{
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture);
 		glUniform1i(glGetUniformLocation(program, "Texture"), 0);
@@ -81,7 +85,7 @@ void GameModel::render()
 	case persepctive:
 		// Projection
 		vp = camera->get_projection_matrix() * camera->get_view_matrix();
-		break;;
+		break;
 	}
 
 	GLint vpLoc = glGetUniformLocation(program, "vp");
@@ -117,7 +121,8 @@ void GameModel::setTexture(std::string texFileName)
 	// Load image, create texture and generate mipmaps
 	int width, height;
 	unsigned char* image = SOIL_load_image(texFileName.c_str(), &width, &height, nullptr, SOIL_LOAD_RGB);
-	if (!image) {
+	if (!image)
+	{
 		bIsTextureSet = false;
 		printf("Filename \"%s\" Failed to load \n", texFileName.c_str());
 		return;
@@ -141,7 +146,9 @@ void GameModel::setPosition(glm::vec3 _position) { this->position = _position; }
 
 void GameModel::setColor(glm::vec3 _color) { this->color = _color; }
 
-void GameModel::setCamera(Camera* camera) {}
+void GameModel::setCamera(Camera* camera)
+{
+}
 
 void GameModel::setSpeed(float _speed) { this->speed = _speed; }
 

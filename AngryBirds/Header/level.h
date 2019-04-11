@@ -7,12 +7,12 @@
 #include "../Header/contact.h"
 
 class Level
-	{
-	public:
-		void setLevel(int _level);
-		int getLevel();
-		int level = 1;
-	};
+{
+public:
+	void setLevel(int _level);
+	int getLevel();
+	int level = 1;
+};
 
 inline void Level::setLevel(int _level) { level = _level; }
 

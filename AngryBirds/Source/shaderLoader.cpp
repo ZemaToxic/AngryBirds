@@ -1,14 +1,19 @@
 #include "../Header/ShaderLoader.h"
 
-ShaderLoader::ShaderLoader(void) {}
+ShaderLoader::ShaderLoader(void)
+{
+}
 
-ShaderLoader::~ShaderLoader(void) {}
+ShaderLoader::~ShaderLoader(void)
+{
+}
 
 std::string ShaderLoader::read_shader(char* filename)
 {
 	std::string shaderCode;
 	std::ifstream file(filename, std::ios::in);
-	if (!file.good()) {
+	if (!file.good())
+	{
 		std::cout << "Can't read file " << filename << std::endl;
 		std::terminate();
 	}
@@ -31,7 +36,8 @@ GLuint ShaderLoader::create_shader(GLenum shader_type, std::string source, char*
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &compile_result);
 
 	//check for errors
-	if (compile_result == GL_FALSE) {
+	if (compile_result == GL_FALSE)
+	{
 		int info_log_length = 0;
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_log_length);
 		std::vector<char> shader_log(info_log_length);
@@ -57,7 +63,8 @@ GLuint ShaderLoader::create_program(char* vertexShaderFilename, char* fragmentSh
 	glLinkProgram(program);
 	glGetProgramiv(program, GL_LINK_STATUS, &link_result);
 	//check for link errors
-	if (link_result == GL_FALSE) {
+	if (link_result == GL_FALSE)
+	{
 		int info_log_length = 0;
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &info_log_length);
 		std::vector<char> program_log(info_log_length);
